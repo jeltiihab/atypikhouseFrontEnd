@@ -1,18 +1,29 @@
-import Head from 'next/head'
-import contact from './contact'
+import React from "react";
+import { FaDev } from "react-icons/fa";
 
-export default function Home() {
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      <Head>
-        <title>Atypikhouse</title>
-        <link rel="icon" href="/favicon.ico" />
-        <link ref/>
-      </Head>
+import useNavigation from "../src/hooks/useNavigation";
+import navigationData from "../src/data/navigation";
 
+import Navbar from "../src/components/Navbar/Navbar";
+import Tabbar from "../src/components/Tabbar/Tabbar";
 
+const App = () => {
+    const { currentRoute, setCurrentRoute } = useNavigation();
 
-      {/* Banner */ }
-    </div>
-  )
-}
+    return (
+        <div >
+            <Navbar
+                navigationData={navigationData}
+                currentRoute={currentRoute}
+                setCurrentRoute={setCurrentRoute}
+            />
+            <Tabbar
+                navigationData={navigationData}
+                currentRoute={currentRoute}
+                setCurrentRoute={setCurrentRoute}
+            />
+        </div>
+    );
+};
+
+export default App;
