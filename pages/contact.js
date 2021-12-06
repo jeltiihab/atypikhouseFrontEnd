@@ -29,8 +29,6 @@ export default function contact() {
 </div>
         );
     };
-
-
     return (
         <div>
             {/* Header*/}
