@@ -1,0 +1,9 @@
+.loginButton {
+    @apply bg-secondary w-40 rounded-full text-white font-bold py-1.5 px-4;
+}
+.reservationButton {
+    @apply bg-secondary w-60 rounded-full text-white font-bold py-1.5 px-4;
+}
+.reservationButtonDanger {
+    @apply bg-danger w-40 rounded-full text-white font-bold py-1.5 px-4;
+}

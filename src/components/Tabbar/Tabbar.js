@@ -1,24 +1,22 @@
 import React, { useCallback } from "react";
 import classNames from "classnames";
-import { AiFillHome, AiFillPhone } from "react-icons/ai";
-import { FcFaq } from "react-icons/fc";
-import { GiTreehouse } from "react-icons/gi";
-import { FaQuestionCircle } from "react-icons/fa";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faHome, faDungeon, faEnvelope, faInfoCircle} from '@fortawesome/free-solid-svg-icons'
 import styles from "./Tabbar.module.css";
-import Image from "next/image";
 
 const Tabbar = ({ navigationData, currentRoute, setCurrentRoute }) => {
+
     const getTabIcon = useCallback((item) => {
+        <FontAwesomeIcon size="xs" icon={faHome} />
         switch (item) {
             case "Accueil":
-                return <AiFillHome />;
+                return <FontAwesomeIcon size="xs" icon={faHome} />;
             case "Nos biens":
-                return <GiTreehouse />;
+                return <FontAwesomeIcon size="xs" icon={faDungeon} />;
             case "Contact":
-                return <AiFillPhone />;
+                return <FontAwesomeIcon size="xs" icon={faEnvelope} />;
             case "FAQ":
-                return <FaQuestionCircle />;
+                return <div><FontAwesomeIcon size="xs" icon={faInfoCircle} /></div>;
         }
     }, []);
 
@@ -29,12 +27,12 @@ const Tabbar = ({ navigationData, currentRoute, setCurrentRoute }) => {
                     key={index}
                     className={classNames([
                         styles.tabItem,
-                        currentRoute === item && styles.tabItemActive,
+                        currentRoute === item.linkParent && styles.tabItemActive,
                     ])}
-                    onClick={() => setCurrentRoute(item)}
+                    onClick={() => setCurrentRoute(item.linkParent)}
                 >
-          <span className={styles.icon}>{getTabIcon(item)}</span>
-        </span>
+          <span className={styles.icon}>{getTabIcon(item.name)}</span>
+                </span>
             ))}
         </nav>
     );

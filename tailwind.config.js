@@ -5,7 +5,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        Abel: ["Abel", "cursive"],
+        body: ['Abel'],
       },
       backgroundColor: theme => ({
         ...theme('colors'),

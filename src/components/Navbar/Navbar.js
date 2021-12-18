@@ -3,6 +3,7 @@ import classNames from "classnames";
 import Image from "next/image"
 import styles from "./Navbar.module.css";
 import {MenuIcon, UserCircleIcon} from "@heroicons/react/solid";
+import Link from 'next/link'
 
 const Navbar = ({ navigationData, currentRoute, setCurrentRoute }) => {
     return (
@@ -18,9 +19,14 @@ const Navbar = ({ navigationData, currentRoute, setCurrentRoute }) => {
                             currentRoute === item && styles.selectedNavItem,
                         ])}
                         key={index}
-                        onClick={() => setCurrentRoute(item)}
+                        onClick={() => setCurrentRoute(item.name)}
                     >
-                        {item}
+                        <Link href={item.linkParent}>
+                            <a>
+                                {item.name}
+                            </a>
+                        </Link>
+
                     </li>
                 ))}
             </ul>

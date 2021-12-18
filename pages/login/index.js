@@ -1,13 +1,15 @@
 import React from "react";
-import useNavigation from "../src/hooks/useNavigation";
-import navigationData from "../src/data/navigation";
+import useNavigation from "../../src/hooks/useNavigation";
+import navigationData from "../../src/data/navigation";
 
-import Navbar from "../src/components/Navbar/Navbar";
-import Tabbar from "../src/components/Tabbar/Tabbar";
+import Navbar from "../../src/components/Navbar/Navbar";
+import Tabbar from "../../src/components/Tabbar/Tabbar";
+import WelcomBanner from "../../src/components/WelcomeBanner/WelcomeBanner";
 import styles from "./login.module.css"
+import style from "../../src/components/WelcomeBanner/WelcomeBanner.module.css"
 import Image from "next/image";
 
-const Login = () => {
+const Index = () => {
     const { currentRoute, setCurrentRoute } = useNavigation();
     return (
         <>
@@ -47,27 +49,10 @@ const Login = () => {
                     </div>
                 </div>
                 {/* END right side of the login page */}
-
-                {/* START Left side of the login page */}
-                <div className={styles.rightSide}>
-                    <div>
-                        <Image src="/../public/images/login-bg.jpg" layout="fill" objectFit="fill"/>
-                        <div className={styles.layerDiv}>
-                        </div>
-                    </div>
-                    <div className={styles.label}>
-                        <h1 className={styles.AtypikhouseLabel}>ATYPIKHOUSE</h1>
-                        <p> Le meilleure site d'hébergements insolites sur le web</p>
-                        <button className={styles.partnerLoginButton}>
-                            Devenir partenaire
-                        </button>
-                    </div>
-                </div>
-                {/* END Left side of the login page */}
-
+                <WelcomBanner/>
             </div>
         </>
     );
 };
 
-export default Login;
+export default Index;
