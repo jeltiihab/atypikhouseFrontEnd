@@ -1,12 +1,11 @@
 import React from "react";
 import useNavigation from "../../src/hooks/useNavigation";
 import navigationData from "../../src/data/navigation";
-
 import Navbar from "../../src/components/Navbar/Navbar";
 import Tabbar from "../../src/components/Tabbar/Tabbar";
 import WelcomBanner from "../../src/components/WelcomeBanner/WelcomeBanner";
 import styles from "../login/login.module.css"
-import Image from "next/image";
+import ButtonStyle from '../../src/components/Buttons/Buttons.module.css'
 
 const Index = () => {
     const { currentRoute, setCurrentRoute } = useNavigation();
@@ -57,7 +56,7 @@ const Index = () => {
                                 <input className={styles.formInputs} id="password_repeat" type="password" placeholder="Retaper votre mot de pass" />
                             </div>
                             <div>
-                                <button className={styles.loginButton} type="button">
+                                <button className={ButtonStyle.greenMdButton} type="button">
                                     S'inscrire
                                 </button>
                             </div>

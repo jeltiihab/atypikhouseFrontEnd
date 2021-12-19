@@ -7,10 +7,9 @@ import styles from "./Tabbar.module.css";
 const Tabbar = ({ navigationData, currentRoute, setCurrentRoute }) => {
 
     const getTabIcon = useCallback((item) => {
-        <FontAwesomeIcon size="xs" icon={faHome} />
         switch (item) {
             case "Accueil":
-                return <FontAwesomeIcon size="xs" icon={faHome} />;
+                return <FontAwesomeIcon size="lg" icon={faHome} />;
             case "Nos biens":
                 return <FontAwesomeIcon size="xs" icon={faDungeon} />;
             case "Contact":

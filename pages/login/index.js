@@ -1,7 +1,6 @@
 import React from "react";
 import useNavigation from "../../src/hooks/useNavigation";
 import navigationData from "../../src/data/navigation";
-
 import Navbar from "../../src/components/Navbar/Navbar";
 import Tabbar from "../../src/components/Tabbar/Tabbar";
 import WelcomBanner from "../../src/components/WelcomeBanner/WelcomeBanner";

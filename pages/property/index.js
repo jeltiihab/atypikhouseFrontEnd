@@ -78,7 +78,7 @@ const Property = () => {
                             moveRangeOnFirstSelection={false}
                             />
                             <div className={styles.buttonDiv}>
-                                <AppButton styleparam={buttonStyle.reservationButton} Content="Vérifier les disponibilités" />
+                                <AppButton styleparam={buttonStyle.redLgButton} Content="Vérifier les disponibilités" />
                             </div>
                         </div>
                     </div>

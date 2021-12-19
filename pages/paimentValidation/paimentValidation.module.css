@@ -54,7 +54,6 @@
 .conditondutilisation {
     @apply text-center text-green-800 underline my-5
 }
-
 .paimentIcons {
     @apply sm:w-64
 }
