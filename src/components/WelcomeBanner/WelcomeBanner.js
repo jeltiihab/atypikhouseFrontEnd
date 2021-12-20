@@ -1,8 +1,8 @@
 import React from "react";
-
 import Image from "next/image";
 import styles from "./WelcomeBanner.module.css"
 import ButtonStyle from '../Buttons/Buttons.module.css'
+import WelcomeImage from '../../../public/images/login-bg.jpg'
 
 const WelcomeBanner = () => {
     return (
@@ -10,7 +10,7 @@ const WelcomeBanner = () => {
                 {/* START Left side of the login page */}
                 <div className={styles.rightSide}>
                     <div>
-                        <Image src="/../public/images/login-bg.jpg" layout="fill" objectFit="fill"/>
+                        <Image src={WelcomeImage} layout="fill" objectFit="fill"/>
                         <div className={styles.layerDiv}>
                         </div>
                     </div>

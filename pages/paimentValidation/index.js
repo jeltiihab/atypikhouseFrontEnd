@@ -9,6 +9,11 @@ import Tabbar from "../../src/components/Tabbar/Tabbar";
 import useNavigation from "../../src/hooks/useNavigation";
 import AppButton from "../../src/components/Buttons/Buttons"
 import buttonStyle from "../../src/components/Buttons/Buttons.module.css";
+import PropertyImage from '../../public/images/galerie1.jpg'
+import PaypalIcon from '../../public/icons/paypal.png'
+import VisaIcon from '../../public/icons/visa.png'
+import MasterCardIcon from '../../public/icons/maestro.png'
+
 const paimentValidation = () => {
     const { currentRoute, setCurrentRoute } = useNavigation();
     return (
@@ -22,7 +27,7 @@ const paimentValidation = () => {
                 <div className={styles.leftRightSide}>
                     <h2 className={styles.titles}>Demande de réservation</h2>
                     <div className={styles.propertyInfos}>
-                        <div><Image className={styles.propertyPictures} src={"/../public/galerie1.jpg"} width={150} height={150}/></div>
+                        <div><Image className={styles.propertyPictures} src={PropertyImage} width={150} height={150}/></div>
                         <div>
                             <div>Cabane dans une arbre en normandie pour 3 personnes</div>
                             <div className={styles.infoBarItems}><FontAwesomeIcon className={styles.infoBarStarIcon} size="xs" icon={faStarHalfAlt} /> <label>3/5</label></div>
@@ -77,12 +82,12 @@ const paimentValidation = () => {
                         <div className={styles.paymentMethod}>
                             <div className={styles.paymentMethodItems}>
                                 <input type="radio" className="form-radio" name="paimentType" value="paypal"/>
-                                <Image className={styles.paimentIcons} src="/../public/icons/paypal.png" width={50} height={50} />
+                                <Image className={styles.paimentIcons} src={PaypalIcon} width={50} height={50} />
                             </div>
                             <div className={styles.paymentMethodItems}>
                                 <input type="radio" className="form-radio" name="paimentType" value="card"/>
-                                <Image className={styles.paimentIcons} src="/../public/icons/visa.png" width={50} height={50} />
-                                <Image className={styles.paimentIcons} src="/../public/icons/maestro.png" width={50} height={30} />
+                                <Image className={styles.paimentIcons} src={VisaIcon} width={50} height={50} />
+                                <Image className={styles.paimentIcons} src={MasterCardIcon} width={50} height={30} />
                             </div>
                         </div>
                     </div>

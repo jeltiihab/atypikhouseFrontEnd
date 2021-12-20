@@ -5,12 +5,13 @@ import styles from "./Navbar.module.css";
 import {MenuIcon, UserCircleIcon} from "@heroicons/react/solid";
 import Link from 'next/link'
 import ButtonStyle from '../Buttons/Buttons.module.css'
+import Logo from '../../../public/images/logo.png'
 
 const Navbar = ({ navigationData, currentRoute, setCurrentRoute }) => {
     return (
         <nav className={styles.navbar}>
             <div className={styles.logo}>
-                <Image src="/../public/images/logo.png" layout="fill" objectFit="contain"/>
+                <Image src={Logo} layout="fill" objectFit="contain"/>
             </div>
             <ul className={styles.navItems}>
                 {navigationData.map((item, index) => (
