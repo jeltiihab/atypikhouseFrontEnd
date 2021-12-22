@@ -1,0 +1,61 @@
+.container{
+    @apply flex flex-col p-4 
+}
+
+
+.containerBottom{
+    @apply flex flex-col items-center sm:items-center sm:-mr-40
+}
+/* 
+.containerTop{
+    @apply pl-20
+} */
+
+.content{
+    @apply p-10 sm:items-center
+}
+
+
+.recapSearch{
+   @apply text-xs text-gray-500
+}
+
+
+.title{
+    @apply text-3xl font-semibold mt-2 mb-6
+}
+
+
+
+.list{
+    @apply flex flex-row  justify-between flex-wrap mb-5 mr-2 space-x-3 text-gray-800 
+}
+
+
+.type{
+    @apply flex justify-between sm:items-center
+}
+@tailwind components;
+@layer components{
+    .items{
+        @apply flex-none block px-8 py-2 h-10 border rounded-full cursor-pointer hover:shadow-lg active:scale-95
+        active:bg-gray-100 transition transform duration-100 ease-out mr-4 sm:mt-2 
+    }
+}
+
+
+@layer components{
+    .button{
+        @apply  px-10 py-2 border rounded-full cursor-pointer hover:shadow-lg active:scale-95
+        active:bg-gray-100 transition transform duration-100 ease-out  
+         flex-none  mr-10 pl-10 sm:mt-2 sm:mb-2 sm:px-4 sm:py-4 sm:rounded-t-sm 
+    }
+}
+
+.textFilter{
+    @apply sm:hidden 
+}
+
+.iconFilter{
+    @apply top-4 flex  justify-between items-center
+}
