@@ -22,3 +22,7 @@
 .redSquareButton {
     @apply rounded-sm justify-center bg-danger w-44 text-white font-bold py-1.5 px-4 m-4;
 }
+
+.blackWideButton {
+    @apply bg-black w-32 rounded-lg text-white font-bold py-1.5 px-4;
+}
