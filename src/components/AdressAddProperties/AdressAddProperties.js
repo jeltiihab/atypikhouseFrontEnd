@@ -30,10 +30,9 @@ function AdressAddProperties() {
                         </div>
 
                     </div>
-                    <div className={styles.buttonContainer}>
+                   
                     <AppButton Content="Parfait" styleparam={buttonStyle.blackWideButton} />
                 
-                    </div>
                 </div>
 
             </div>

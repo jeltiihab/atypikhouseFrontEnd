@@ -12,6 +12,10 @@
     @apply bg-danger w-52 rounded-full text-white font-bold py-1.5 px-4;
 }
 
+.redLargeSecondButton {
+    @apply bg-danger w-40 rounded-lg text-white font-bold py-1.5 px-4;
+}
+
 .redWideButton {
     @apply bg-danger w-40 rounded-full text-white font-bold py-1.5 px-4;
 }

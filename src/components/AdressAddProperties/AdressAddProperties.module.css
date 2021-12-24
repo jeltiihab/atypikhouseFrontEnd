@@ -1,11 +1,11 @@
 .container{
-    @apply h-screen w-11/12 py-20 px-20 sm:px-4 
+    @apply h-2/3 w-1/2  px-20 sm:px-2 md:px-2
 }
 
 
 .itemsContent{
-    @apply p-2 h-96 border border-white shadow-md 
-    rounded-lg md:h-full sm:w-full 
+    @apply p-2 border border-white shadow-md 
+    rounded-lg  lg:mb-32 lg:ml-20 lg:mt-6 sm:w-screen md:w-10/12 md:ml-20 
     /* leading-tight focus:outline-none  focus:border-green-100  */
 }
 
@@ -16,7 +16,7 @@
 }
 
 .input{
-    @apply mb-20 py-4 pb-1
+    @apply mb-10 py-4 pb-1
 }
 
 .containerTitle{
@@ -28,12 +28,8 @@
 }
 
 .adress{
-    @apply text-black placeholder-gray-600 w-full px-4 py-2.5 mt-2 text-base  
+    @apply text-black placeholder-gray-600  sm:w-full px-4 py-2.5 mt-2 text-base  
      transition duration-500 ease-in-out transform border-transparent rounded-lg bg-gray-200 
      focus:border-black focus:bg-white border-2  focus:outline-none 
      focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400
-}
-.buttonContainer{
-    @apply  fixed
-
 }
