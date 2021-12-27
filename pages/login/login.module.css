@@ -3,7 +3,10 @@
 }
 
 .leftSide {
-    @apply  mt-24 relative;
+    @apply  mt-10 relative;
+}
+.leftSideRegister {
+    @apply  mt-10 relative grid md:grid-cols-2 sm:grid-cols-1;
 }
 
 .AtypikhouseLabel {
@@ -20,10 +23,6 @@
 
 .loginForm {
     @apply rounded px-8 pt-6 pb-8 mb-20 flex flex-col;
-}
-
-.formInputs {
-    @apply shadow appearance-none rounded-full w-60 py-2 px-3 mb-3;
 }
 
 .loginButton {

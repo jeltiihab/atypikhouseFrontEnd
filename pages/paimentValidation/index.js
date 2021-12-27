@@ -3,12 +3,12 @@ import styles from './paimentValidation.module.css'
 import Image from 'next/image'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHeart, faMapMarkedAlt, faStarHalfAlt, faUser, paypal} from "@fortawesome/free-solid-svg-icons";
-import Navbar from "../../src/components/Navbar/Navbar";
+import Navbar from "../../src/components/core/Navbar/Navbar";
 import navigationData from "../../src/data/navigation";
-import Tabbar from "../../src/components/Tabbar/Tabbar";
+import Tabbar from "../../src/components/core/Tabbar/Tabbar";
 import useNavigation from "../../src/hooks/useNavigation";
-import AppButton from "../../src/components/Buttons/Buttons"
-import buttonStyle from "../../src/components/Buttons/Buttons.module.css";
+import AppButton from "../../src/components/ui/Buttons/Buttons"
+import buttonStyle from "../../src/components/ui/Buttons/Buttons.module.css";
 import PropertyImage from '../../public/images/galerie1.jpg'
 import PaypalIcon from '../../public/icons/paypal.png'
 import VisaIcon from '../../public/icons/visa.png'

@@ -4,8 +4,8 @@ import Image from "next/image"
 import styles from "./Navbar.module.css";
 import {MenuIcon, UserCircleIcon} from "@heroicons/react/solid";
 import Link from 'next/link'
-import ButtonStyle from '../Buttons/Buttons.module.css'
-import Logo from '../../../public/images/logo.png'
+import ButtonStyle from '../../ui/Buttons/Buttons.module.css'
+import Logo from '../../../../public/images/logo.png'
 
 const Navbar = ({ navigationData, currentRoute, setCurrentRoute }) => {
     return (
@@ -32,12 +32,14 @@ const Navbar = ({ navigationData, currentRoute, setCurrentRoute }) => {
                     </li>
                 ))}
             </ul>
-            <button className={ButtonStyle.redLgButton}>
+            <button className={styles.redWideButton}>
                 Devenir partenaire
             </button>
-            <div className={styles.user}>
-                <MenuIcon className="h-6" />
-                <UserCircleIcon className="h-6" />
+            <div>
+                <div className={styles.user}>
+                    <MenuIcon className="h-6" />
+                    <UserCircleIcon className="h-6" />
+                </div>
             </div>
         </nav>
     );

@@ -1,8 +1,8 @@
 import React from "react";
 import Image from "next/image";
 import styles from "./WelcomeBanner.module.css"
-import ButtonStyle from '../Buttons/Buttons.module.css'
-import WelcomeImage from '../../../public/images/login-bg.jpg'
+import ButtonStyle from '../../ui/Buttons/Buttons.module.css'
+import WelcomeImage from '../../../../public/images/login-bg.jpg'
 
 const WelcomeBanner = () => {
     return (

@@ -3,7 +3,7 @@ import Image from "next/image"
 import styles from "./Card.module.css";
 import AppButton from "../Buttons/Buttons";
 import buttonStyle from "../Buttons/Buttons.module.css";
-import PropertyImage from '../../../public/images/property1.jpg'
+import PropertyImage from '../../../../public/images/property1.jpg'
 
 const PropertyCard = () => {
     return (

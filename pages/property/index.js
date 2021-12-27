@@ -1,13 +1,13 @@
 import React from "react";
 import {useState} from "react";
 import Image from "next/image";
-import Map from '../../src/components/Map/Map'
+import Map from '../../src/components/ui/Map/Map'
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { DateRange } from 'react-date-range';
-import AppButton from "../../src/components/Buttons/Buttons"
+import AppButton from "../../src/components/ui/Buttons/Buttons"
 import styles from "./property.module.css"
-import buttonStyle from "../../src/components/Buttons/Buttons.module.css"
+import buttonStyle from "../../src/components/ui/Buttons/Buttons.module.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStarHalfAlt, faMapMarkedAlt, faUser, faHeart } from '@fortawesome/free-solid-svg-icons'
 

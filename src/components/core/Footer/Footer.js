@@ -1,10 +1,10 @@
 import React from "react";
 import Image from "next/image"
 import styles from "./Footer.module.css";
-import AppButton from "../Buttons/Buttons";
-import buttonStyle from "../Buttons/Buttons.module.css";
-import miniLogo from '../../../public/images/min-logo.png'
-import ButtonStyle from '../../components/Buttons/Buttons.module.css'
+import AppButton from "../../ui/Buttons/Buttons";
+import buttonStyle from "../../ui/Buttons/Buttons.module.css";
+import miniLogo from '../../../../public/images/min-logo.png'
+import ButtonStyle from '../../ui/Buttons/Buttons.module.css'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons"
 
