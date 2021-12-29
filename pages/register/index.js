@@ -23,7 +23,8 @@ const Index = () => {
     ];
     const userSexe = [
         {key: 'Homme', value: 'homme'},
-        {key: 'Femme', value: 'femme'}
+        {key: 'Femme', value: 'femme'},
+        {key: 'Autre', value: 'autre'}
     ];
     const checkBoxOptions = [
         {key: "J\'accepte la politique de confidentialité", value: 'terms'}
@@ -39,8 +40,8 @@ const Index = () => {
         phone: "",
         email: "",
         password: "",
-        confirmPassword: ""
-        //termsOfService: []
+        confirmPassword: "",
+        termsOfService: []
     };
 
     // Adding the schema for User with Yup
