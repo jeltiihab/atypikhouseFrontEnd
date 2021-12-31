@@ -1,7 +1,7 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import classNames from "classnames";
+import axios from 'axios'
 import styles from "./CardsProperties.module.css";
-import InfoCards from "./InfoCards";
 import { AiOutlineHeart } from "react-icons/ai";
 import Cabanes from "./Cabanes/Cabanes";
 import Contact from "../../../pages/Contact";
@@ -36,6 +36,18 @@ const CardsProperties = ({ navigationData, currentRoute, setCurrentRoute }) => {
         }
     }, []);
 
+    const getElement = async () => {
+
+        const response = await axios.get("http://localhost:8000/api/adresses")
+            .then((response) => {
+            });
+        return response;
+    }
+    const test = async () => {
+        const response = await axios.get("http://localhost:8000/api/adresses")
+        return response.data
+    }
+    console.log(test());
     return (
         <div>
 

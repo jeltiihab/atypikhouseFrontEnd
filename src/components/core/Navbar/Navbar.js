@@ -2,10 +2,10 @@ import React from "react";
 import classNames from "classnames";
 import Image from "next/image"
 import styles from "./Navbar.module.css";
-import {MenuIcon, UserCircleIcon} from "@heroicons/react/solid";
 import Link from 'next/link'
 import ButtonStyle from '../../ui/Buttons/Buttons.module.css'
 import Logo from '../../../../public/images/logo.png'
+import DropDown from "../../ui/DropDown/DropDown"
 
 const Navbar = ({ navigationData, currentRoute, setCurrentRoute }) => {
     return (
@@ -36,10 +36,7 @@ const Navbar = ({ navigationData, currentRoute, setCurrentRoute }) => {
                 Devenir partenaire
             </button>
             <div>
-                <div className={styles.user}>
-                    <MenuIcon className="h-6" />
-                    <UserCircleIcon className="h-6" />
-                </div>
+                <DropDown/>
             </div>
         </nav>
     );

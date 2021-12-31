@@ -6,7 +6,7 @@
     @apply  mt-10 relative;
 }
 .leftSideRegister {
-    @apply  mt-10 relative grid md:grid-cols-2 sm:grid-cols-1;
+    @apply mt-10 relative grid md:grid-cols-2 sm:grid-cols-1
 }
 
 .AtypikhouseLabel {
@@ -59,4 +59,10 @@
 
 .welcomeMsg {
     @apply absolute top-10 w-full text-center;
+}
+.formInputsContainer {
+    @apply relative grid md:grid-cols-2 lg:grid-cols-2 sm:grid-cols-1 gap-x-12 gap-y-4 px-12 mb-4 h-auto
+}
+.middleInputContainer {
+    @apply relative grid md:grid-cols-3 lg:grid-cols-3 sm:grid-cols-1 md:col-span-2 gap-12
 }
