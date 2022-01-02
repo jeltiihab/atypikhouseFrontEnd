@@ -50,7 +50,7 @@ const CardsProperties = ({ navigationData, currentRoute, setCurrentRoute, props 
 
     const indexofLastCards = currentPage * cardsPerPage;
     const indexOfFirstCards = indexofLastCards - cardsPerPage;
-    const currentPost = cards.slice(indexOfFirstCards, indexofLastCards);
+    const currentCards = cards.slice(indexOfFirstCards, indexofLastCards);
 
     const pagination = (pageNumber) => setCurrentPage(pageNumber)
 
@@ -79,24 +79,23 @@ const CardsProperties = ({ navigationData, currentRoute, setCurrentRoute, props 
                     </nav>
                 </div>
                     {propertiesData?.map(item => (
-                    <Link href={{ pathname: '/property', query: {id: item.id} }}>
-                        <div>
-                        <div className="">
-                            <div className={styles.gridContent}>
-                                <div className={styles.place}>
-                                    <div className="grid grad-cols-3 gap-4">
-                                    {console.log(item.id)}
-                                    <InfoCards id={item.id} />
+                        <Link href={{ pathname: '/property', query: {id: item.id} }}>
+                            <div>
+                            <div className="">
+                                <div className={styles.gridContent}>
+                                    <div className={styles.place}>
+                                        <div className="grid grad-cols-3 gap-4">
+                                            <InfoCards id={item.id} cards={currentCards}/>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        </div>
-                    </Link>
+                            </div>
+                        </Link>
                 ))}
-                   
+
                 <Pagination
-                    totalCards={cards.length}
+                    totalCards={propertiesData.length}
                     cardsPerPage={cardsPerPage}
                     pagination={pagination}
                 />
