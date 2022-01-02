@@ -11,6 +11,12 @@ import Link from 'next/link';
 import propertiesData from "../../../data/propertiesData";
 import Pagination from '../Pagination/Pagination'
 import ReactPaginate from 'react-paginate';
+import { useRouter } from "next/router";
+import { Field, Formik } from "formik";
+import FilAriane from "../../ui/FilAriane/FilAriane";
+import arianeStyle from "../../ui/FilAriane/FilAriane.module.css";
+
+
 
 
 
@@ -40,16 +46,21 @@ const CardsProperties = ({ navigationData, currentRoute, setCurrentRoute, props 
         }
     }, []);
 
+    // pagination
+
     const indexofLastCards = currentPage * cardsPerPage;
     const indexOfFirstCards =  indexofLastCards - cardsPerPage;
     const currentPost = cards.slice( indexOfFirstCards, indexofLastCards );
 
     const pagination =(pageNumber) => setCurrentPage(pageNumber)
+
+
    
      return (
 
         <>
-            <div class={styles.containerNav}>
+            <FilAriane prevPageAriane="Acceuil" currentPageAriane="Nos Biens" arianeStyle="px-10"/>
+            <div className={styles.containerNav}>
                 <div className={styles.contentMove}>
                     <nav className={styles.centerbar}>
                         {navigationData.map((item, index) => (
