@@ -12,6 +12,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStarHalfAlt, faMapMarkedAlt, faUser, faHeart } from '@fortawesome/free-solid-svg-icons'
 import property from "../../src/data/propertiesData";
 import { useRouter } from "next/router";
+import FilAriane from "../../src/components/ui/FilAriane/FilAriane";
+import arianeStyle from "../../src/components/ui/FilAriane/FilAriane.module.css";
 
 
 
@@ -33,6 +35,8 @@ const Property = () => {
     };
 
 
+    
+
 
     // https://programmingwithmosh.com/javascript/axios-in-react-bring-your-data-to-the-front/
     // get data after Click on "Nos Biens"
@@ -46,6 +50,7 @@ const Property = () => {
       
     return (
             <div className={styles.container}>
+                <FilAriane prevPageAriane="Nos Biens" currentPageAriane="Consultation du bien " arianeStyle="px-10"/>
                 <div className={styles.propertyTitle}>
                     {/* <h1>Cabane dans une arbre en normandie pour 3 personnes</h1> */}
                 </div>
