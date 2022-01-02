@@ -1,5 +1,5 @@
 .container{
-    @apply grid grid-cols-1 gap-4  w-1/2 py-16 px-10 lg:w-1/2 md:w-7/12 -mt-60 sm:w-full
+    @apply grid grid-cols-1 gap-4  w-1/2 py-16 px-10 lg:w-1/2 md:w-7/12 -mt-60 sm:w-full 
 }
 
 
