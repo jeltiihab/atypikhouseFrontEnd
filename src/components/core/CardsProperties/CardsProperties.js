@@ -71,9 +71,9 @@ const CardsProperties = ({ navigationData, currentRoute, setCurrentRoute }) => {
                     state: { isAdmin:true }
                 }}>
                     <div className="">
-                        <div class={styles.gridContent}>
+                        <div className={styles.gridContent}>
                             <div className={styles.place}>
-                                <div class="grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
+                                <div className="grid grad-cols-3 gap-4">
                                     <InfoCards propertyData={propertiesData} />
                                 </div>
                             </div>
