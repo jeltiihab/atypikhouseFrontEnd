@@ -2,6 +2,7 @@ import 'tailwindcss/tailwind.css'
 import NProgress from "nprogress"
 import Head from "next/head"
 import Router from "next/router"
+import axios from "axios"
 
 Router.onRouteChangeStart = url => {
     NProgress.start()
@@ -10,6 +11,10 @@ Router.onRouteChangeStart = url => {
 Router.onRouteChangeComplete = () => NProgress.done()
 
 Router.onRouteChangeError = () => NProgress.done()
+
+axios.defaults.baseURL = 'http://localhost:8000/api';
+axios.defaults.headers.common['Authorization'] = 'AUTH TOKEN';
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 function MyApp({ Component, pageProps }) {
 

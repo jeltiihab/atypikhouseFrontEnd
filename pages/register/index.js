@@ -108,10 +108,10 @@ const Index = () => {
                 if(err && err.response)
                     console.log("Error", err);
             });
-
         // if there is a response and a data then success
         if(response && response.data) {
-            setSuccess(reeponse.data.message);
+            console.log(response.data.message)
+            setSuccess(response.data.message);
         }
         alert("OK")
     }
@@ -168,10 +168,10 @@ const Index = () => {
                             <h1 className={styles.AtypikhouseLabel}>Bonjour</h1>
                             <h2>Bienvenue</h2>
                             <Form className={styles.loginForm} autoComplete="off">
-                                    <div className="grid grid-cols-2 gap-x-12 gap-y-4 px-12 mb-4">
+                                    <div className={styles.formInputsContainer}>
                                         <Input label="Nom" name="firstName" type="text"/>
                                         <Input label="Prénom"  name="lastName" type="text"/>
-                                        <div className="grid grid-cols-3 col-span-2 gap-12">
+                                        <div className={styles.middleInputContainer}>
                                             <Select label="Vous êtes ?"  name="userRole" options={userRoleOptions}/>
                                             <Select label="Sexe"  name="sexe" options={userSexe}/>
                                             <DateControl label="Date de naissance"  name="birthDay"/>

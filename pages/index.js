@@ -29,6 +29,7 @@ const App = () => {
             <Footer/>
             <CookieConsent
                 debug={true}
+                cookieName="AtypikCookie"
                 location="top"
                 style={{background:'#000', textAlign:"center"}}
                 expires={7}
