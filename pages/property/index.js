@@ -34,8 +34,23 @@ const Property = () => {
         key: "selection"
     };
 
+    const router = useRouter()
 
-    
+
+        const getproperty = ()  => {
+            axios.get(`/properties/`+ {})
+            .then( (response) => {
+                //setCards(response.data)
+                const cardsData = response.data['hydra:member'].sort(function(a,b){
+                    return new Date(b.createAt) - new Date(a.createAt);
+                }).slice(0, 3);
+                setCards(cardsData);
+                console.log(cardsData);
+            })
+            .catch((error) => {
+                console.log(`We have a server error`, error);
+            });
+    }
 
 
     // https://programmingwithmosh.com/javascript/axios-in-react-bring-your-data-to-the-front/

@@ -52,7 +52,7 @@
 }
 
 .tabItemActive {
-    @apply border-b-2 border-gray-900 bg-opacity-25  border-green-700 text-black
+    @apply border-b-2  bg-opacity-25  border-green-700 text-black
 }
 
 

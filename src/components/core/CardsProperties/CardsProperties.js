@@ -49,17 +49,17 @@ const CardsProperties = ({ navigationData, currentRoute, setCurrentRoute, props 
     // pagination
 
     const indexofLastCards = currentPage * cardsPerPage;
-    const indexOfFirstCards =  indexofLastCards - cardsPerPage;
-    const currentPost = cards.slice( indexOfFirstCards, indexofLastCards );
+    const indexOfFirstCards = indexofLastCards - cardsPerPage;
+    const currentPost = cards.slice(indexOfFirstCards, indexofLastCards);
 
-    const pagination =(pageNumber) => setCurrentPage(pageNumber)
+    const pagination = (pageNumber) => setCurrentPage(pageNumber)
 
 
-   
-     return (
+
+    return (
 
         <>
-            <FilAriane prevPageAriane="Acceuil" currentPageAriane="Nos Biens" arianeStyle="px-10"/>
+            <FilAriane prevPageAriane="Acceuil" currentPageAriane="Nos Biens" arianeStyle="px-10" />
             <div className={styles.containerNav}>
                 <div className={styles.contentMove}>
                     <nav className={styles.centerbar}>
@@ -78,30 +78,31 @@ const CardsProperties = ({ navigationData, currentRoute, setCurrentRoute, props 
                         }
                     </nav>
                 </div>
-                <Link href={{
-                    pathname: `/property`,
-                    query: { id: propertiesData.map((i) => i.id) },
-                    search: `?id=`
-                }}>
-                    <div className="">
-                        <div className={styles.gridContent}>
-                            <div className={styles.place}>
-                                <div className="grid grad-cols-3 gap-4">
-                                    <InfoCards propertyData={propertiesData} />
+                    {propertiesData?.map(item => (
+                    <Link href={{ pathname: '/property', query: {id: item.id} }}>
+                        <div>
+                        <div className="">
+                            <div className={styles.gridContent}>
+                                <div className={styles.place}>
+                                    <div className="grid grad-cols-3 gap-4">
+                                    {console.log(item.id)}
+                                    <InfoCards id={item.id} />
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </Link>
-                
-                <Pagination 
-                    totalCards={cards.length} 
+                        </div>
+                    </Link>
+                ))}
+                   
+                <Pagination
+                    totalCards={cards.length}
                     cardsPerPage={cardsPerPage}
                     pagination={pagination}
-                    />
-                
-                </div>
-            
+                />
+
+            </div>
+
         </>
 
     )
