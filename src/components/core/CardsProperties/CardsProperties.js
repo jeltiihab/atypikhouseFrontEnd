@@ -9,18 +9,17 @@ import InfoCards from "./InfoCards";
 import property from "../../../../pages/property";
 import Link from 'next/link';
 import propertiesData from "../../../data/propertiesData";
+import Pagination from '../Pagination/Pagination'
+import ReactPaginate from 'react-paginate';
 
-// function CabanesFunc(){
-//     return ( <Cabanes/>)
-// }
 
-// function Bulles(){
-//     return ( <Contact/>)
-// }
 
-const CardsProperties = ({ navigationData, currentRoute, setCurrentRoute }) => {
 
-    const [cards, setCards] = useState([]);
+const CardsProperties = ({ navigationData, currentRoute, setCurrentRoute, props }) => {
+
+    const [cards, setCards] = useState([]);  // revoir le axios get d'ihab
+    const [currentPage, setCurrentPage] = useState(1);
+    const [cardsPerPage] = useState(10); // nombre de cards affiché 
 
     const getNavProp = useCallback((item) => {
         switch (item) {
@@ -41,8 +40,13 @@ const CardsProperties = ({ navigationData, currentRoute, setCurrentRoute }) => {
         }
     }, []);
 
+    const indexofLastCards = currentPage * cardsPerPage;
+    const indexOfFirstCards =  indexofLastCards - cardsPerPage;
+    const currentPost = cards.slice( indexOfFirstCards, indexofLastCards );
 
-    return (
+    const pagination =(pageNumber) => setCurrentPage(pageNumber)
+   
+     return (
 
         <>
             <div class={styles.containerNav}>
@@ -65,8 +69,8 @@ const CardsProperties = ({ navigationData, currentRoute, setCurrentRoute }) => {
                 </div>
                 <Link href={{
                     pathname: `/property`,
-                    query: { id: propertiesData.map( (i)  =>i.id )},
-                    search:`?id=`
+                    query: { id: propertiesData.map((i) => i.id) },
+                    search: `?id=`
                 }}>
                     <div className="">
                         <div className={styles.gridContent}>
@@ -78,184 +82,17 @@ const CardsProperties = ({ navigationData, currentRoute, setCurrentRoute }) => {
                         </div>
                     </div>
                 </Link>
-
-            </div>
-
-
+                
+                <Pagination 
+                    totalCards={cards.length} 
+                    cardsPerPage={cardsPerPage}
+                    pagination={pagination}
+                    />
+                
+                </div>
+            
         </>
 
-
-
-
-        // <div className="px-4">
-        //     <div class={styles.gridContent}>
-        //     <div className={styles.place}>
-        //         <div>
-        //                 <img src="https://source.unsplash.com/random/350x350" alt=" random imgee"
-        //                      class={styles.img} />
-        //                 {/* <div className={styles.contentAiOutlineHeart}> <AiOutlineHeart className={styles.AiOutlineHeart}/> </div> */}
-        //                 <div class={styles.properties}>                            
-        //                  <div class={styles.contents}>
-        //                          <div class={styles.itemsContents}>
-        //                              <div class={styles.itemsRooms}>
-        //                                  2 baths &bull; 3 rooms
-        //                              </div>
-
-        //                              <h4 class={styles.title}>A random Title</h4>
-
-        //                             <div class={styles.contentPrice}>
-        //                                  $1800
-        //                                  <span className={styles.price}> /wk</span>
-        //                             </div>
-        //                             <div class="mt-4">
-        //                                 <span class="text-teal-600 text-md font-semibold">4/5 ratings </span>
-        //                                 <span class="text-sm text-gray-600">(based on 234 ratings)</span>
-        //                             </div>
-        //                         </div>
-        //                     </div>
-        //                 </div>
-        //            </div>
-        //         </div>
-
-
-        //         <div className={styles.place}>
-        //                 <div>
-        //                 <img src="https://source.unsplash.com/random/350x350" alt=" random imgee"
-        //                      class="w-full object-cover object-center rounded-lg shadow-md" />
-        //                 <div class={styles.properties}>                            
-        //                  <div class={styles.contents}>
-        //                          <div class={styles.itemsContents}>
-        //                              <div class={styles.itemsRooms}>
-        //                                  2 baths &bull; 3 rooms
-        //                              </div>
-
-        //                              <h4 class={styles.title}>A random Title</h4>
-
-        //                             <div class={styles.contentPrice}>
-        //                                  $1800
-        //                                  <span className={styles.price}> /wk</span>
-        //                             </div>
-        //                             <div class="mt-4">
-        //                                 <span class="text-teal-600 text-md font-semibold">4/5 ratings </span>
-        //                                 <span class="text-sm text-gray-600">(based on 234 ratings)</span>
-        //                             </div>
-        //                         </div>
-        //                     </div>
-        //                 </div>
-        //            </div>
-        //         </div>
-
-        //         <div className={styles.place}>
-        //                 <div>
-        //                 <img src="https://source.unsplash.com/random/350x350" alt=" random imgee"
-        //                      class="w-full object-cover object-center rounded-lg shadow-md" />
-        //                 <div class={styles.properties}>                            
-        //                  <div class={styles.contents}>
-        //                          <div class={styles.itemsContents}>
-        //                              <div class={styles.itemsRooms}>
-        //                                  2 baths &bull; 3 rooms
-        //                              </div>
-
-        //                              <h4 class={styles.title}>A random Title</h4>
-
-        //                             <div class={styles.contentPrice}>
-        //                                  $1800
-        //                                  <span className={styles.price}> /wk</span>
-        //                             </div>
-        //                             <div class="mt-4">
-        //                                 <span class="text-teal-600 text-md font-semibold">4/5 ratings </span>
-        //                                 <span class="text-sm text-gray-600">(based on 234 ratings)</span>
-        //                             </div>
-        //                         </div>
-        //                     </div>
-        //                 </div>
-        //            </div>
-        //         </div>
-
-
-        //         <div className={styles.place}>
-        //                 <div>
-        //                 <img src="https://source.unsplash.com/random/350x350" alt=" random imgee"
-        //                      class="w-full object-cover object-center rounded-lg shadow-md" />
-        //                 <div class={styles.properties}>                            
-        //                  <div class={styles.contents}>
-        //                          <div class={styles.itemsContents}>
-        //                              <div class={styles.itemsRooms}>
-        //                                  2 baths &bull; 3 rooms
-        //                              </div>
-
-        //                              <h4 class={styles.title}>A random Title</h4>
-
-        //                             <div class={styles.contentPrice}>
-        //                                  $1800
-        //                                  <span className={styles.price}> /wk</span>
-        //                             </div>
-        //                             <div class="mt-4">
-        //                                 <span class="text-teal-600 text-md font-semibold">4/5 ratings </span>
-        //                                 <span class="text-sm text-gray-600">(based on 234 ratings)</span>
-        //                             </div>
-        //                         </div>
-        //                     </div>
-        //                 </div>
-        //            </div>
-        //         </div>
-
-        //         <div className={styles.place}>
-        //                 <div>
-        //                 <img src="https://source.unsplash.com/random/350x350" alt=" random imgee"
-        //                      class="w-full object-cover object-center rounded-lg shadow-md" />
-        //                 <div class={styles.properties}>                            
-        //                  <div class={styles.contents}>
-        //                          <div class={styles.itemsContents}>
-        //                              <div class={styles.itemsRooms}>
-        //                                  2 baths &bull; 3 rooms
-        //                              </div>
-
-        //                              <h4 class={styles.title}>A random Title</h4>
-
-        //                             <div class={styles.contentPrice}>
-        //                                  $1800
-        //                                  <span className={styles.price}> /wk</span>
-        //                             </div>
-        //                             <div class="mt-4">
-        //                                 <span class="text-teal-600 text-md font-semibold">4/5 ratings </span>
-        //                                 <span class="text-sm text-gray-600">(based on 234 ratings)</span>
-        //                             </div>
-        //                         </div>
-        //                     </div>
-        //                 </div>
-        //            </div>
-        //         </div>
-
-
-        //         <div className={styles.place}>
-        //                 <div>
-        //                 <img src="https://source.unsplash.com/random/350x350" alt=" random imgee"
-        //                      class="w-full object-cover object-center rounded-lg shadow-md" />
-        //                 <div class={styles.properties}>                            
-        //                  <div class={styles.contents}>
-        //                          <div class={styles.itemsContents}>
-        //                              <div class={styles.itemsRooms}>
-        //                                  2 baths &bull; 3 rooms
-        //                              </div>
-
-        //                              <h4 class={styles.title}>A random Title</h4>
-
-        //                             <div class={styles.contentPrice}>
-        //                                  $1800
-        //                                  <span className={styles.price}> /wk</span>
-        //                             </div>
-        //                             <div class="mt-4">
-        //                                 <span class="text-teal-600 text-md font-semibold">4/5 ratings </span>
-        //                                 <span class="text-sm text-gray-600">(based on 234 ratings)</span>
-        //                             </div>
-        //                         </div>
-        //                     </div>
-        //                 </div>
-        //            </div>
-        //         </div>
-        //     </div>
-        // </div>
     )
 };
 
