@@ -2,9 +2,10 @@ import React from 'react';
 import emailjs from 'emailjs-com';
 
 import styles from "./Contact.module.css";
-import FilAriane from '../../src/components/FilAriane/FilAriane';
-import AppButton from '../../src/components/Buttons/Buttons';
-import buttonStyle from '../../src/components/Buttons/Buttons.module.css';
+import AppButton from '../../src/components/ui/Buttons/Buttons';
+import buttonStyle from '../../src/components/ui/Buttons/Buttons.module.css';
+import FilAriane from '../../src/components/ui/FilAriane/FilAriane';
+import arianeStyle from '../../src/components/ui/FilAriane/FilAriane.module.css';
 
 export default function contact() {
 
@@ -69,14 +70,15 @@ export default function contact() {
 
     return (
         <div>
-            {/* Header*/}
-
-            {/* Main*/}
+                <FilAriane prevPageAriane="Nos Biens" currentPageAriane="Contact " arianeStyle="px-10"/>
+                
+           
             <main >
+        
                 <div className={styles.ContactContainer}>
                     {/* START right side of the contact page */}
                     <div className={styles.leftSide}>
-                        <FilAriane />
+                        {/* <FilAriane /> */}
                         <div className={styles.contactUs}>
                             <h1 className={styles.h1ContactUs}>Nous Contacter</h1>
                             <form onSubmit={sendEmail} className={styles.formContainer}>
