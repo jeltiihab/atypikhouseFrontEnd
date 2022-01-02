@@ -1,5 +1,26 @@
-.container{
-    @apply px-4
+.ContainerNav{
+    @apply flex items-center font-mono border-none border-gray-100  px-10
+    overflow-x-auto md:space-x-20 md:justify-between md:items-center 
+}
+.contentMove{
+    @apply  px-4 pt-4 my-10 -mx-3 shadow-md
+}
+.centerbar {
+    @apply flex flex-auto flex-row items-center justify-center px-2 py-4
+    bg-white visible top-0 w-screen h-full rounded-t-xl text-sm
+    overflow-y-auto sm:space-x-10  whitespace-nowrap
+
+    /* @apply flex items-center sm:space-x-4 overflow-y-auto sm:max-w-lg xl:max-w-5xl 2xl:max-w-7xl lg:max-w-3xl whitespace-nowrap */
+}
+
+.tabItem {
+    @apply block text-black cursor-pointer w-full h-full
+    border-b-2 border-gray-100 
+    
+}
+
+.tabItemActive {
+    @apply border-b-2 border-green-800 bg-opacity-25  text-black
 }
 
 .propertiesContainer {
@@ -25,7 +46,7 @@
 
 .tabItem {
     @apply flex items-center justify-center 
-    text-gray-300 text-black cursor-pointer w-full h-full
+    text-gray-300 text-black cursor-pointer w-full h-full border-green-700
     border-b-2 border-gray-100 
     
 }
@@ -50,10 +71,12 @@
 /*  grid */
 
 .gridContent{
-    @apply grid lg:grid-cols-3 gap-4 mt-4 pt-4 md:grid-cols-2 sm:grid-cols-1
+    @apply  mt-4 pt-4 pl-32
 }
+
+
 .place{
-    @apply flex flex-col text-center w-full lg:w-5/6 bg-white p-1 rounded  
+    @apply flex flex-col text-center w-full lg:w-5/6 bg-white p-1 rounded cursor-pointer
 
 }
 
