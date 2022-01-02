@@ -1,6 +1,6 @@
 import paris from "../../public/images/smallCardsImages/paris.jpg"
 import lyon from "../../public/images/smallCardsImages/lyon.jpg"
-import marseille from "../../public/images/smallCardsImages/paris.jpg"
+import marseille from "../../public/images/smallCardsImages/marseille.jpg"
 import montpellier from "../../public/images/smallCardsImages/montpellier.jpg"
 import mayenne from "../../public/images/smallCardsImages/mayenne.jpg"
 import nantes from "../../public/images/smallCardsImages/nantes.jpg"

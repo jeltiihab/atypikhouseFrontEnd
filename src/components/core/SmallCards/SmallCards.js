@@ -1,7 +1,9 @@
 import Image from "next/image"
 import styles from "./SmallCrads.module.css"
 
-function SmallCard({img, location, distance}) {
+function SmallCard({img, location, distance, handle}) {
+
+
     return (
         <div className={styles.smallCardContainer}>
             {/* Left */}

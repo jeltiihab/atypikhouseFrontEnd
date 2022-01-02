@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import styles from './home.module.css'
 import Image from 'next/image'
+import Link from 'next/link'
 import AppButton from '../../src/components/ui/Buttons/Buttons'
 import buttonStyle from '../../src/components/ui/Buttons/Buttons.module.css'
 import PropertyCard from "../../src/components/ui/Cards/Card";
@@ -17,11 +18,14 @@ import SmallCardsData from "../../src/data/smallCards"
 const Home = () => {
 
     const [cards, setCards] = useState([]);
+
     const getCardsData = ()  => {
         axios.get('/properties')
             .then( (response) => {
                 //setCards(response.data)
-                const cardsData = response.data['hydra:member'];
+                const cardsData = response.data['hydra:member'].sort(function(a,b){
+                    return new Date(b.createAt) - new Date(a.createAt);
+                }).slice(0, 3);
                 setCards(cardsData);
                 console.log(cardsData);
             })
@@ -109,95 +113,22 @@ const Home = () => {
                 <h2 className="text-4xl font-semibold pb-5">Explorer à proximité</h2>
 
                 {/* Pull the data from the server - static rendering for the front page */}
-                <div className={styles.smallcardsContainer}>
+                <div  className={styles.smallcardsContainer}>
                     {SmallCardsData?.map(item => (
-                        <SmallCard
-                            key={item.location}
-                            img={item.img}
-                            distance={item.distance}
-                            location={item.location}
-                        />
+                    <Link href={{ pathname: '/searchpage', query: { location: item.location} }}>
+                        <div>
+                                <SmallCard
+                                    key={item.location}
+                                    img={item.img}
+                                    distance={item.distance}
+                                    location={item.location}
+                                />
+                        </div>
+                    </Link>
                     ))}
                 </div>
             </section>
             </main>
-            <div id="carouselExampleCaptions" className="carousel slide relative" data-bs-ride="carousel">
-                <div className="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
-                    <button
-                        type="button"
-                        data-bs-target="#carouselExampleCaptions"
-                        data-bs-slide-to="0"
-                        className="active"
-                        aria-current="true"
-                        aria-label="Slide 1"
-                    ></button>
-                    <button
-                        type="button"
-                        data-bs-target="#carouselExampleCaptions"
-                        data-bs-slide-to="1"
-                        aria-label="Slide 2"
-                    ></button>
-                    <button
-                        type="button"
-                        data-bs-target="#carouselExampleCaptions"
-                        data-bs-slide-to="2"
-                        aria-label="Slide 3"
-                    ></button>
-                </div>
-                <div className="carousel-inner relative w-full overflow-hidden">
-                    <div className="carousel-item active relative float-left w-full">
-                        <img
-                            src="https://mdbootstrap.com/img/Photos/Slides/img%20(15).jpg"
-                            className="block w-full"
-                            alt="..."
-                        />
-                        <div className="carousel-caption hidden md:block absolute text-center">
-                            <h5 className="text-xl">First slide label</h5>
-                            <p>Some representative placeholder content for the first slide.</p>
-                        </div>
-                    </div>
-                    <div className="carousel-item relative float-left w-full">
-                        <img
-                            src="https://mdbootstrap.com/img/Photos/Slides/img%20(22).jpg"
-                            className="block w-full"
-                            alt="..."
-                        />
-                        <div className="carousel-caption hidden md:block absolute text-center">
-                            <h5 className="text-xl">Second slide label</h5>
-                            <p>Some representative placeholder content for the second slide.</p>
-                        </div>
-                    </div>
-                    <div className="carousel-item relative float-left w-full">
-                        <img
-                            src="https://mdbootstrap.com/img/Photos/Slides/img%20(23).jpg"
-                            className="block w-full"
-                            alt="..."
-                        />
-                        <div className="carousel-caption hidden md:block absolute text-center">
-                            <h5 className="text-xl">Third slide label</h5>
-                            <p>Some representative placeholder content for the third slide.</p>
-                        </div>
-                    </div>
-                </div>
-                <button
-                    className="carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
-                    type="button"
-                    data-bs-target="#carouselExampleCaptions"
-                    data-bs-slide="prev"
-                >
-                    <span className="carousel-control-prev-icon inline-block bg-no-repeat" aria-hidden="true"></span>
-                    <span className="visually-hidden">Previous</span>
-                </button>
-                <button
-                    className="carousel-control-next absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
-                    type="button"
-                    data-bs-target="#carouselExampleCaptions"
-                    data-bs-slide="next"
-                >
-                    <span className="carousel-control-next-icon inline-block bg-no-repeat" aria-hidden="true"></span>
-                    <span className="visually-hidden">Next</span>
-                </button>
-            </div>
                 <div className={styles.testimonialDiv}>
                     <div className={styles.testimonialContainer}>
                         <div className="w-full max-w-6xl mx-auto">
@@ -355,7 +286,6 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-            <Footer/>
         </div>
     );
 };
