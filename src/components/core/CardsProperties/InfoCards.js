@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 
 
-export default function InfoCards({id}) {
+export default function InfoCards({props}, ) { //cards
     return (
         <>
                             <div className="">
