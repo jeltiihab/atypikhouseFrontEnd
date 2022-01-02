@@ -66,9 +66,7 @@ const CardsProperties = ({ navigationData, currentRoute, setCurrentRoute }) => {
                 <Link href={{
                     pathname: `/property`,
                     query: { id: propertiesData.map( (i)  =>i.id )},
-                    search:`?id=`,
-                    hash:'#hash',
-                    state: { isAdmin:true }
+                    search:`?id=`
                 }}>
                     <div className="">
                         <div className={styles.gridContent}>
