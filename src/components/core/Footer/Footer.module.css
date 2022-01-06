@@ -1,3 +1,7 @@
+.container {
+    @apply  mt-auto
+}
+
 .footerContainer {
     @apply w-full bg-gray-200 h-auto grid md:grid-cols-4 p-5 md:gap-x-8 sm:gap-y-4 sm:grid-cols-1
 }
