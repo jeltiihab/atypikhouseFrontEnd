@@ -1,14 +1,17 @@
+import { QueryClient, QueryClientProvider } from 'react-query'
+import useNavigation from "../src/hooks/useNavigation";
 import 'tailwindcss/tailwind.css'
-import NProgress from "nprogress"
-import Head from "next/head"
 import Router from "next/router"
+import Head from "next/head"
 import axios from "axios"
+import { AuthProvider } from '../context/AuthContext'
+
+
+import NProgress from "nprogress"
 import Navbar from "../src/components/core/Navbar/Navbar";
 import navigationData from "../src/data/navigation";
 import Tabbar from "../src/components/core/Tabbar/Tabbar";
 import Footer from "../src/components/core/Footer/Footer";
-import useNavigation from "../src/hooks/useNavigation";
-import { QueryClient, QueryClientProvider } from 'react-query'
 
 
 const queryClient = new QueryClient();
@@ -30,8 +33,9 @@ function MyApp({ Component, pageProps }) {
     const { currentRoute, setCurrentRoute } = useNavigation();
     return (
         <>
-        <div className='min-h-[100vh] flex flex-col'>
+        <div className='min-h-[100vh] flex flex-col font-body'>
         <QueryClientProvider client={queryClient}>
+        <AuthProvider>
             <Head>
                 <link
                     rel="stylesheet"
@@ -50,6 +54,7 @@ function MyApp({ Component, pageProps }) {
             />
             <Component {...pageProps} />
             <Footer/>
+        </AuthProvider>
         </QueryClientProvider>
         </div>
         </>

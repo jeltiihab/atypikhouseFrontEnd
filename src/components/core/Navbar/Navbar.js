@@ -11,7 +11,11 @@ const Navbar = ({ navigationData, currentRoute, setCurrentRoute }) => {
     return (
         <nav className={styles.navbar}>
             <div className={styles.logo}>
+            <Link href="/">
+                <a>
                 <Image src={Logo} layout="fill" objectFit="contain"/>
+                </a>
+            </Link>
             </div>
             <ul className={styles.navItems}>
                 {navigationData.map((item, index) => (

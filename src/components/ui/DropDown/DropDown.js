@@ -1,10 +1,12 @@
-import * as React from "react";
+import React, {useContext} from "react";
 import { Menu, Transition } from "@headlessui/react";
 import styles from "./dropDown.module.css"
 import {MenuIcon, UserCircleIcon} from "@heroicons/react/solid";
 import Link from 'next/link'
+import AuthContext from '../../../../context/AuthContext'
 
 export default function DropDown() {
+    let {user} = useContext(AuthContext)
     return (
         <div className={styles.dropDownContainer}>
             <div className={styles.menu}>
@@ -17,7 +19,6 @@ export default function DropDown() {
                     <UserCircleIcon className="h-6" />
                 </Menu.Button>
               </span>
-
                             <Transition
                                 show={open}
                                 enter="transition ease-out duration-100"
@@ -28,7 +29,28 @@ export default function DropDown() {
                                 leaveTo="transform opacity-0 scale-95"
                             >
                                 <Menu.Items static className={styles.menuItems}>
-                                    <div className="py-1">
+                                    {
+                                        user ? (
+                                            <div className="py-1">
+                                        <Menu.Item>
+                                            {({ active }) => (
+                                                <Link Link href="/register">
+                                                    <a
+                                                        className={
+                                                            active
+                                                                ? styles.menuItemActive
+                                                                : styles.menuItemNonActive
+                                                        }
+                                                    >
+                                                        Logout
+                                                    </a>
+                                                </Link>
+                                            )}
+                                        </Menu.Item>
+                                            </div>
+                                        ): (
+                                            <div>
+                                            <div className="py-1">
                                         <Menu.Item>
                                             {({ active }) => (
                                                 <Link Link href="/login">
@@ -62,6 +84,9 @@ export default function DropDown() {
                                             )}
                                         </Menu.Item>
                                     </div>
+                                            </div>
+                                        )
+                                    }
                                 </Menu.Items>
                             </Transition>
                         </>
