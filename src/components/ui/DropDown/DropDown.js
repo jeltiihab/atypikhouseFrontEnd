@@ -6,7 +6,7 @@ import Link from 'next/link'
 import AuthContext from '../../../../context/AuthContext'
 
 export default function DropDown() {
-    let {user} = useContext(AuthContext)
+    let {user, logoutUser} = useContext(AuthContext)
     return (
         <div className={styles.dropDownContainer}>
             <div className={styles.menu}>
@@ -34,8 +34,7 @@ export default function DropDown() {
                                             <div className="py-1">
                                         <Menu.Item>
                                             {({ active }) => (
-                                                <Link Link href="/register">
-                                                    <a
+                                                    <a onClick={logoutUser}
                                                         className={
                                                             active
                                                                 ? styles.menuItemActive
@@ -44,7 +43,6 @@ export default function DropDown() {
                                                     >
                                                         Logout
                                                     </a>
-                                                </Link>
                                             )}
                                         </Menu.Item>
                                             </div>
@@ -53,7 +51,7 @@ export default function DropDown() {
                                             <div className="py-1">
                                         <Menu.Item>
                                             {({ active }) => (
-                                                <Link Link href="/login">
+                                                <Link href="/login">
                                                     <a
                                                         className={
                                                             active
@@ -70,7 +68,7 @@ export default function DropDown() {
                                     <div className="py-1">
                                         <Menu.Item>
                                             {({ active }) => (
-                                                <Link Link href="/register">
+                                                <Link href="/register">
                                                     <a
                                                         className={
                                                             active

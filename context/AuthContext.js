@@ -9,6 +9,16 @@ export default AuthContext;
 
 export const AuthProvider = ({children}) => {
 
+    useEffect(() => {
+        // Perform localStorage action
+        const token = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : ''
+        if (token !=''){
+            setaccessToken(token)
+            setUser(jwt_decode(token))
+        }
+        
+    }, [])
+
     let [accessToken, setaccessToken] = useState(null)
     let [user, setUser] = useState(null)
 
@@ -32,16 +42,25 @@ export const AuthProvider = ({children}) => {
           if(response.status === 200) {
             setaccessToken(response)
             setUser(jwt_decode(response.data.token))
-            console.log(user)
+            //console.log(user)
             localStorage.setItem('accessToken', response.data.token)
-            Router.push('/')
+            Router.push('/profil')
           } else {
               alert("something went wrong!")
           }
     }
+
+    let logoutUser = () => {
+        setaccessToken(null)
+        setUser(null)
+        localStorage.removeItem('accessToken')
+        Router.push('/login')
+    }
+
     let contextData = {
         user: user,
-        loginUser:loginUser
+        loginUser: loginUser,
+        logoutUser: logoutUser
     }
     return(
         <AuthContext.Provider value={contextData}>
