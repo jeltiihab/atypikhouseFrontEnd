@@ -2,7 +2,8 @@ import { AiOutlineProfile, AiOutlineNotification } from "react-icons/ai";
 import ProfilCards from "../../src/components/ProfilCards/ProfilCards";
 import ProfilForm from "../../src/components/ProfilForm/ProfilForm";
 import styles from "./Profil.module.css";
-
+import PrivatRoute from "../../utils/PrivateRoute"
+import withAuth from "../../utils/withAuth";
 // ne pas oubliez la page de la résilliation du compte client 
 
 function Index() {
@@ -57,7 +58,7 @@ function Index() {
 }
 
 
-export default Index
+export default withAuth(Index);
 
 
 

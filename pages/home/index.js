@@ -8,17 +8,22 @@ import PropertyCard from "../../src/components/ui/Cards/Card";
 import Typewriter from 'typewriter-effect';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHeart, faSearch} from "@fortawesome/free-solid-svg-icons";
-import Footer from '../../src/components/core/Footer/Footer'
 import BannerImage from '../../public/images/banner.jpg'
 import JoinUsImage from '../../public/images/joinus.jpg'
 import SmallCard from '../../src/components/core/SmallCards/SmallCards'
 import axios from "axios";
 import SmallCardsData from "../../src/data/smallCards"
+import { useRouter } from "next/router";
+import SearchBar from "../../src/components/core/SearchBar/SearchBar"
+
 
 const Home = () => {
 
     const [cards, setCards] = useState([]);
+    const router = useRouter();
 
+
+    // Getting data for the three cards in the home page ( 3 Only )    
     const getCardsData = ()  => {
         axios.get('/properties')
             .then( (response) => {
@@ -33,7 +38,6 @@ const Home = () => {
                 console.log(`We have a server error`, error);
             });
     }
-
     useEffect(getCardsData, []);
 
     return (
@@ -48,38 +52,24 @@ const Home = () => {
                         }}
                         />
                     </div>
+
                     <div className={styles.SerachBar}>
                         <input id="search" type="text" placeholder="Lancer votre recherche"/>
                         <FontAwesomeIcon className={styles.searchIcon} size="xs" icon={faSearch} />
                     </div>
                     <div className={styles.bannerMiddleBtns}>
-                        <AppButton Content="Reserver Maintenant !" styleparam={buttonStyle.redSquareButton} />
-                        <AppButton Content="Contactez nous" styleparam={buttonStyle.redSquareButton} />
+                        <Link href="/search">
+                            <a>
+                                <AppButton Content="Reserver Maintenant !" styleparam={buttonStyle.redSquareButton} />
+                            </a>
+                        </Link>
+                        <Link href="/contact">
+                            <a>
+                                <AppButton Content="Contactez nous" styleparam={buttonStyle.redSquareButton} />
+                            </a>
+                        </Link>
                     </div>
-                    <div className={styles.BannerCalendar}>
-                        <div>
-                            <input className={styles.formInputs} id="destination" type="text" placeholder="Destination" />
-                        </div>
-                        <div>
-                            <input className={styles.formInputs} id="departure" type="date" placeholder="Date de départ" />
-                        </div>
-                        <div>
-                            <input className={styles.formInputs} id="retour" type="date" placeholder="Date de retour" />
-                        </div>
-                        <div>
-                            <select className={styles.formInputs} name="travelers" id="travelers-select">
-                                <option value="">Voyageurs</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                        </div>
-                        <div className={styles.buttonDiv}>
-                            <AppButton Content="Rechercher" styleparam={buttonStyle.greenSmButton} />
-                        </div>
-                    </div>
+                    <SearchBar/>
                 </div>
             <div className={styles.ourOffres}>
                 <div className={styles.ourOffresTitle}>
@@ -111,12 +101,11 @@ const Home = () => {
             <main className="max-w-7xl mx-auto px-8 sm:px-16">
             <section className="pt-6">
                 <h2 className="text-4xl font-semibold pb-5">Explorer à proximité</h2>
-
                 {/* Pull the data from the server - static rendering for the front page */}
                 <div  className={styles.smallcardsContainer}>
-                    {SmallCardsData?.map(item => (
-                    <Link href={{ pathname: '/searchpage', query: { location: item.location} }}>
-                        <div>
+                    {SmallCardsData?.map((item, i) => (
+                    <Link href={{ pathname: '/searchpage', query: { location: item.location } }} key={item.i}>
+                        <div key={item.i}>
                                 <SmallCard
                                     key={item.location}
                                     img={item.img}
