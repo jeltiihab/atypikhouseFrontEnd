@@ -1,6 +1,6 @@
 
 .container{
-    @apply h-screen md:flex 
+    @apply h-screen md:flex
 
 }
 
@@ -39,7 +39,7 @@
 }
 
 .itemsContent{
-    @apply  w-screen  px-4 sm:mt-52
+    @apply  w-screen  px-4 sm:mt-10
 }
 
 /* ______________ */
@@ -69,9 +69,9 @@
 /* __________________ */
 
 .close{
-    @apply fixed m-10  w-40 
+    @apply pr-20 m-2  w-2 h-4 
      text-gray-700 
-     rounded-lg h-10 
+     rounded-lg
 }
 
 
