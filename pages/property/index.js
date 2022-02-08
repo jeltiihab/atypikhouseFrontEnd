@@ -14,6 +14,8 @@ import property from "../../src/data/propertiesData";
 import { useRouter } from "next/router";
 import FilAriane from "../../src/components/ui/FilAriane/FilAriane";
 import arianeStyle from "../../src/components/ui/FilAriane/FilAriane.module.css";
+import Head from "next/head";
+
 
 
 
@@ -65,6 +67,13 @@ const Property = () => {
       
     return (
             <div className={styles.container}>
+                <Head>
+                    <title>Bienvenue sur Atypik House</title>
+                    <meta name="description" content="Les hébergement insolite"/>
+                    <meta property="og:title" content="Hebergement insolite"/>
+                    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+                    <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+                </Head>
                 <FilAriane prevPageAriane="Nos Biens" currentPageAriane="Consultation du bien " arianeStyle="px-10"/>
                 <div className={styles.propertyTitle}>
                     {/* <h1>Cabane dans une arbre en normandie pour 3 personnes</h1> */}

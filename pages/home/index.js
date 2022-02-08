@@ -15,6 +15,7 @@ import axios from "axios";
 import SmallCardsData from "../../src/data/smallCards"
 import { useRouter } from "next/router";
 import SearchBar from "../../src/components/core/SearchBar/SearchBar"
+import Head from "next/head";
 
 
 const Home = () => {
@@ -42,6 +43,13 @@ const Home = () => {
 
     return (
         <div className={styles.homeContainer}>
+            <Head>
+                <title>Bienvenue sur Atypik House</title>
+                <meta name="description" content="Découvrez atypik house"/>
+                <meta property="og:title" content="Bienvenue sur Atypik House"/>
+                <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+                <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+            </Head>
                 <div className={styles.banner}>
                     <Image src={BannerImage} layout="fill" objectFit="fill" loading="eager"/>
                     <div className={styles.bannerTitles}>
