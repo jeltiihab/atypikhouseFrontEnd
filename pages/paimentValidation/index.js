@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef, useState, useEffect, useContext} from "react";
 import styles from './paimentValidation.module.css'
 import Image from 'next/image'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -13,26 +13,88 @@ import PropertyImage from '../../public/images/galerie1.jpg'
 import PaypalIcon from '../../public/icons/paypal.png'
 import VisaIcon from '../../public/icons/visa.png'
 import MasterCardIcon from '../../public/icons/maestro.png'
+import { useRouter } from "next/router";
+import axios from "axios";
+import LoadingOverlay from 'react-loading-overlay';
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import FullPageLoader from "../../src/components/ui/Spinner/FullPageLoader";
+import AuthContext from "../../context/AuthContext";
 
-const paimentValidation = () => {
+const paimentValidation = function() {
+
+
+    const router = useRouter();
+    let {isAuthenticated, user, logoutUser, isLoading} = useContext(AuthContext)
+    const id = router.query.id;
+    const arrival = router.query.arrival;
+    const departure = router.query.departure;
+    const nbrVoyager = router.query.nbrVoyager;
+const [isloading , setisloading] = useState(true);
+const [orderUrl , setorderUrl] = useState("");
+const [confirmUrl , setconfirmUrl] = useState("");
     const { currentRoute, setCurrentRoute } = useNavigation();
+    const [propertyData, setPropertyData] = useState([]);
+
+	
+
+    const dataVerify = {arrival: arrival, departure: departure, propertyId: id};
+    const getProperty = async ()  => {
+	
+        var response = await  axios.post(`/reservations/check`, dataVerify) ;
+		console.log('response.data',response.data);
+		setorderUrl(response.data.orderUrl);
+		setPropertyData(response.data) ;
+		setisloading(false)
+            
+        }
+
+    useEffect(getProperty, [isAuthenticated, isLoading])
+
+    if (isLoading || !isAuthenticated) {
+        return <FullPageLoader />;
+    }
+
+function getOrder() {
+				 console.log("order url",orderUrl) ;
+                                var ddata = {arrival: arrival, departure: departure, propertyId: id, hosting_capacity: nbrVoyager};
+								console.log('ddata',ddata) ;
+                                return fetch (orderUrl,{
+                                    method : "POST",
+                                    body : JSON.stringify(ddata),
+									 headers: {
+                        'content-type': 'application/json',
+                       
+                        'Accept' : 'application/json',
+                        'Authorization' : localStorage.getItem('access_token') ? localStorage.getItem('access_token') : ''
+                    }
+
+
+                                }).then(function(res) {
+                                    return res.json();
+                                }).then(function (data){
+									localStorage.getItem('data',data)
+                                    setconfirmUrl( data.confirmUrl);
+                                    return data.orderID;
+                                })
+
+}
     return (
+<LoadingOverlay
+  active={orderUrl == ""}
+  spinner
+  text='Loading ...'
+  >
         <div className={styles.container}>
-            <Navbar
-                navigationData={navigationData}
-                currentRoute={currentRoute}
-                setCurrentRoute={setCurrentRoute}
-            />
             <div className={styles.validatePaimentcontainer}>
                 <div className={styles.leftRightSide}>
                     <h2 className={styles.titles}>Demande de réservation</h2>
                     <div className={styles.propertyInfos}>
-                        <div><Image className={styles.propertyPictures} src={PropertyImage} width={150} height={150}/></div>
+                        <div><Image className={styles.propertyPictures} src={PropertyImage} width={150} height={150}/> </div>
                         <div>
-                            <div>Cabane dans une arbre en normandie pour 3 personnes</div>
+                            <div>{propertyData?.property?.name}</div>
                             <div className={styles.infoBarItems}><FontAwesomeIcon className={styles.infoBarStarIcon} size="xs" icon={faStarHalfAlt} /> <label>3/5</label></div>
-                            <div className={styles.infoBarItems}><FontAwesomeIcon className={styles.infoBarIcons} size="xs" icon={faMapMarkedAlt} /><label>Normandie</label></div>
-                            <div className={styles.infoBarItems}><FontAwesomeIcon className={styles.infoBarIcons} size="xs" icon={faUser} /><label>User</label></div>
+                            <div className={styles.infoBarItems}><FontAwesomeIcon className={styles.infoBarIcons} size="xs" icon={faMapMarkedAlt} /><label>{propertyData?.property?.address?.city}</label></div>
+                            <div className={styles.infoBarItems}><FontAwesomeIcon className={styles.infoBarIcons} size="xs" icon={faUser} /><label>{propertyData?.property?.user?.firstName} {propertyData?.property?.user?.lastName}</label></div>
                         </div>
                         <div><FontAwesomeIcon className={styles.infoBarIcons} size="xs" icon={faHeart} /></div>
                     </div>
@@ -41,7 +103,7 @@ const paimentValidation = () => {
                         <h4>Dates</h4>
                         <div className={styles.reservationInfos}>
                             <div>
-                                <p><label>20 Jan</label> - <label>26 Jan</label></p>
+                                <p><label>{arrival}</label> - <label>{departure}</label></p>
                             </div>
                             <div className={styles.actionLink}>
                                 <a href="#">Modifier</a>
@@ -50,7 +112,7 @@ const paimentValidation = () => {
                         <h4>Voyageurs</h4>
                         <div className={styles.reservationInfos}>
                             <div>
-                                <p><label>2 Adultes</label></p>
+                                <p><label>{nbrVoyager} Adultes</label></p>
                             </div>
                             <div className={styles.actionLink}>
                                 <a href="#">Modifier</a>
@@ -59,10 +121,10 @@ const paimentValidation = () => {
                         <h4>Prix</h4>
                         <div className={styles.reservationInfos}>
                             <div>
-                                <p><label>107</label> x <label>4</label>Nuits</p>
+                                <p><label>{propertyData?.property?.price}</label> x <label>{propertyData?.days}</label>Nuits</p>
                             </div>
                             <div className={styles.actionLink}>
-                                <a href="#">424.00 Euro</a>
+                                <a href="#">{ propertyData?.property?.price * propertyData?.days } Euro</a>
                             </div>
                         </div>
                         <hr/>
@@ -71,52 +133,41 @@ const paimentValidation = () => {
                                 <p><label>Total</label></p>
                             </div>
                             <div className={styles.actionLink}>
-                                <a href="#">499.00 Euro</a>
+                                <a href="#">{ propertyData?.property?.price * propertyData?.days } Euro</a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className={styles.leftRightSide}>
+
                     <h2 className={styles.titles}>Payer avec</h2>
-                    <div>
-                        <div className={styles.paymentMethod}>
-                            <div className={styles.paymentMethodItems}>
-                                <input type="radio" className="form-radio" name="paimentType" value="paypal"/>
-                                <Image className={styles.paimentIcons} src={PaypalIcon} width={50} height={50} />
-                            </div>
-                            <div className={styles.paymentMethodItems}>
-                                <input type="radio" className="form-radio" name="paimentType" value="card"/>
-                                <Image className={styles.paimentIcons} src={VisaIcon} width={50} height={50} />
-                                <Image className={styles.paimentIcons} src={MasterCardIcon} width={50} height={30} />
-                            </div>
-                        </div>
-                    </div>
-                    <div className={styles.inputContainer}>
-                        <input className={styles.formInputs} id="cartowner" type="text" placeholder="Nom sur la carte" />
-                    </div>
-                    <div className={styles.inputContainer}>
-                        <input className={styles.formInputs} id="cardnumber" type="text" placeholder="Numéro sur la carte" />
-                    </div>
-                    <div className={styles.inputContainer}>
-                        <input className={styles.formInputs} id="securitykey" type="text" placeholder="Code de sécurité" />
-                    </div>
-                    <div className={styles.conditondutilisation}>
-                        <a href="#">Conditions d'utilisation</a>
-                    </div>
-                    <div className="flex justify-center my-6">
-                        <label className="flex items-center">
-                            <input type="checkbox" className="form-checkbox"/>
-                                <span className="ml-2">J'accepte la <span className="underline">politique de confidentialité</span>
-                                </span>
-                        </label>
-                    </div>
-                    <div className={styles.reservationButton}>
-                        <AppButton styleparam={buttonStyle.reservationButtonDanger} Content="Réserver"/>
-                    </div>
+			{ orderUrl != ""?(
+                    <PayPalScriptProvider options={{ "client-id":  "AYz2CwrBi8Tu5wdVqsd9IIs3ZdfN0C7cIkA0gczx_AquHaVQQIQJT2M4Neghd04Kje2At62p2ked1-Bu", currency: "EUR", commit:true}}>
+                        <PayPalButtons
+                            createOrder={getOrder} 
+                            onApprove={() => {
+                                return fetch(confirmUrl,{
+                                    headers: {
+                                        'content-type': 'application/json',
+                                        'Accept' : 'application/json',
+                                        'Authorization' : localStorage.getItem('access_token') ? localStorage.getItem('access_token') : ''
+                                    }
+                                }).then(function (res) {
+                                    return res.json()
+                                }).then(function (data) {
+                                    router.push("paymentsuccess")
+                                })
+                            }}
+                        />
+                    </PayPalScriptProvider> ) :(<br/>) }
+
+
                 </div>
             </div>
 
         </div>
+
+</LoadingOverlay>
     );
 };
 
