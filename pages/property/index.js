@@ -1,5 +1,4 @@
-import React from "react";
-import {useState} from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import Map from '../../src/components/ui/Map/Map'
 import 'react-date-range/dist/styles.css'; // main style file
@@ -7,163 +6,273 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import { DateRange } from 'react-date-range';
 import AppButton from "../../src/components/ui/Buttons/Buttons"
 import styles from "./property.module.css"
+import selectStyle from "../../src/components/ui/FormInputs/formIputs.module.css"
 import buttonStyle from "../../src/components/ui/Buttons/Buttons.module.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStarHalfAlt, faMapMarkedAlt, faUser, faHeart } from '@fortawesome/free-solid-svg-icons'
-import property from "../../src/data/propertiesData";
+import { faStarHalfAlt, faMapMarkedAlt, faUser, faHeart, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
+import quartersToYears from "date-fns/quartersToYears";
 import { useRouter } from "next/router";
-import FilAriane from "../../src/components/ui/FilAriane/FilAriane";
-import arianeStyle from "../../src/components/ui/FilAriane/FilAriane.module.css";
-import Head from "next/head";
-
-
-
+import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
 const Property = () => {
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setendDate] = useState(new Date());
-   // const [property, setProperty] = useState();
 
-    
+    const responsive = {
+        superLargeDesktop: {
+            // the naming can be any, depends on you.
+            breakpoint: { max: 4000, min: 3000 },
+            items: 5
+        },
+        desktop: {
+            breakpoint: { max: 3000, min: 1024 },
+            items: 3
+        },
+        tablet: {
+            breakpoint: { max: 1024, min: 464 },
+            items: 2
+        },
+        mobile: {
+            breakpoint: { max: 464, min: 0 },
+            items: 1
+        }
+    };
+
+    const regInput = useRef();
+    const router = useRouter();
+    var id = router.query.id;
+
+    const [propertyData, setPropertyData] = useState([]);
+    const [startDate, setStartDate] = useState(new Date(new Date().setDate(new Date().getDate() + 1)));
+    const [endDate, setendDate] = useState(new Date());
     const handleSelect = (ranges) => {
         setStartDate(ranges.selection.startDate);
-        setendDate(ranges.selection.endDate)
+        setendDate(ranges.selection.endDate);
     }
-
     const selectionRange = {
         startDate: startDate,
         endDate: endDate,
         key: "selection"
     };
 
-    const router = useRouter()
-
-
-        const getproperty = ()  => {
-            axios.get(`/properties/`+ {})
+    const handleVerify = ()=>{
+        let arrival = startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate();
+        let departure = endDate.getFullYear() + "-" + (endDate.getMonth() + 1) + "-" + endDate.getDate();
+        const nbrVoyager = regInput.current.value;
+        console.log('propertyData',id);
+        const dataVerify = {arrival: arrival, departure: departure, propertyId: id };
+        axios.post('/reservations/check', dataVerify)
             .then( (response) => {
-                //setCards(response.data)
-                const cardsData = response.data['hydra:member'].sort(function(a,b){
-                    return new Date(b.createAt) - new Date(a.createAt);
-                }).slice(0, 3);
-                setCards(cardsData);
-                console.log(cardsData);
+                const data = response.data
+                if(response.status == 200 && data?.status == "affirmative") {
+                    //router.push("/paimentValidation")
+                    router.push({
+                        pathname: '/paimentValidation',
+                        query: { id: propertyData?.id, arrival: arrival, departure: departure, nbrVoyager: nbrVoyager}
+                    })
+                } else if (response?.data?.arrival != null) {
+                    toast.error("Bonjour vérifier s'il vous plaît la saisie de votre date d'arrivée ", {theme: 'colored'});
+                    return;
+                } else if (response?.data?.departure != null) {
+                    toast.error("Bonjour vérifier s'il vous plaît la saisie de votre date sortie ", {theme: 'colored'});
+                    return;
+                } else if (response?.data?.destination != null) {
+                    toast.error("Bonjour vérifier s'il vous plaît la saisie de votre destination ", {theme: 'colored'});
+                    return;
+                } else if (response?.data?.maxTraveler != null) {
+                    toast.error("Bonjour vérifier s'il vous plaît la saisie de votre nombre de voyageur ", {theme: 'colored'});
+                    return;
+                } else {
+                    toast.error("Les dates que vous avez choisies sont déjà réservées.", {theme: 'colored'});
+                    return;
+                }
             })
             .catch((error) => {
                 console.log(`We have a server error`, error);
             });
     }
 
+    const getProperty = async ()  => {
+        if(!router.isReady) return;
+        // router.query.lang is defined
+        console.log("refresh propee")
+        await axios.get(`/properties/${id}`)
+            .then( (response) => {
+                const data = response.data;
+                setPropertyData(data);
+                setEquipementData(data?.category?.equipements)
+            })
+            .catch((error) => {
+                console.log(`We have a server error`, error);
+            });
+    }
 
-    // https://programmingwithmosh.com/javascript/axios-in-react-bring-your-data-to-the-front/
-    // get data after Click on "Nos Biens"
-    // const getProperty = async () => {
-    //     const id = this.props.match.params.id // we grab the ID from the URL
-    //     const {data} = await axios.get(`/properties/${id}`)
-    //     this.setProperty({property: data})       
-    // }
+    useEffect(getProperty, [router])
 
-
-      
     return (
             <div className={styles.container}>
-                <Head>
-                    <title>Bienvenue sur Atypik House</title>
-                    <meta name="description" content="Les hébergement insolite"/>
-                    <meta property="og:title" content="Hebergement insolite"/>
-                    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
-                    <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
-                </Head>
-                <FilAriane prevPageAriane="Nos Biens" currentPageAriane="Consultation du bien " arianeStyle="px-10"/>
                 <div className={styles.propertyTitle}>
-                    {/* <h1>Cabane dans une arbre en normandie pour 3 personnes</h1> */}
+                    <h1>{propertyData.name}</h1>
                 </div>
                 <div className={styles.infoBar}>
                     <div>
                         <div className={styles.infoBarLeftSide}>
-                            <div className={styles.infoBarItems}><label>{property.rate}</label></div>
-                            {/* <div className={styles.infoBarItems}><label>3/5</label></div> */}
-                            <div className={styles.infoBarItems}><FontAwesomeIcon className={styles.infoBarIcons} size="xs" icon={faMapMarkedAlt} /><label>Normandie</label></div>
-                            <div className={styles.infoBarItems}><FontAwesomeIcon className={styles.infoBarIcons} size="xs" icon={faUser} /><label>User</label></div>
+                            <div className={styles.infoBarItems}><label>3/5</label></div>
+                            <div className={styles.infoBarItems}><FontAwesomeIcon className={styles.infoBarIcons} size="xs" icon={faMapMarkedAlt} /><label>{propertyData.address?.city}</label></div>
+                            <div className={styles.infoBarItems}><FontAwesomeIcon className={styles.infoBarIcons} size="xs" icon={faUser} /><label>{propertyData.user?.firstName} {propertyData.user?.lastName}</label></div>
                         </div>
                     </div>
                     <div className={styles.infoBarRightSide}><FontAwesomeIcon className={styles.infoBarIcons} size="xs" icon={faHeart} /></div>
                 </div>
                 <div className={styles.galleryContainer}>
-                    <div className={styles.leftSideGallery}>
-                        <div><Image className={styles.propertyPictures} src={"/../public/galerie1.jpg"} width={1000} height={500}/></div>
-                        <div><Image className={styles.propertyPictures} src={"/../public/galerie2.jpg"} width={1000} height={500}/></div>
-                        <div><Image className={styles.propertyPictures} src={"/../public/galerie3.jpg"} width={1000} height={500}/></div>
-                        <div><Image className={styles.propertyPictures} src={"/../public/galerie4.jpg"} width={1000} height={500}/></div> 
-                    </div>
-                    <div>
-                        <div><Image className={styles.propertyPictures} src={"/../public/galerie4.jpg"} width={1500} height={778}/></div>
-                    </div>
+                    {(propertyData?.images != undefined && propertyData?.images != null)?
+                        <>
+                        <Carousel responsive={responsive} ssr={true}>
+                            <img className={styles.propertyPictures} src={"http://api.f2i-cw1-ij-hc-nag.fr/uploads/"+JSON.parse(propertyData?.images)?.img0}/>
+                            <img className={styles.propertyPictures} src={"http://api.f2i-cw1-ij-hc-nag.fr/uploads/"+JSON.parse(propertyData?.images)?.img1}/>
+                            <img className={styles.propertyPictures} src={"http://api.f2i-cw1-ij-hc-nag.fr/uploads/"+JSON.parse(propertyData?.images)?.img2}/>
+                            <img className={styles.propertyPictures} src={"http://api.f2i-cw1-ij-hc-nag.fr/uploads/"+JSON.parse(propertyData?.images)?.img3}/>
+                            <img className={styles.propertyPictures} src={"http://api.f2i-cw1-ij-hc-nag.fr/uploads/"+JSON.parse(propertyData?.images)?.img4}/>
+                        </Carousel>
+                        </>
+                        :
+                        <></>}
+
                 </div>
                 <div className={styles.tenantInfos}>
-                    <h2>Cabane loué par <span>{property.name}</span></h2>
-                    {/* <h2>Cabane loué par <span>Jeremy XAVIER</span></h2> */}
+                    <h2>Cabane loué par <span>{propertyData.user?.firstName} {propertyData.user?.lastName}</span></h2>
                     <FontAwesomeIcon className={styles.infoBarIcons} icon={faUser} />
                 </div>
                 <hr/>
                 <div className={styles.descriptionAndReservationBlock}>
                     <div className={styles.propertyDescription}>
                         <h3>Description</h3>
-                        <p>
-                            {property.description}
-                        </p>
-                        {/* <h3>Description</h3> */}
-                        {/* <p>
-                            Situé à 2,1 km du château de la Motte Noszvaj, Le TreeHouses Noszvaj propose un service de prêt de vélos, un jardin et des hébergements climatisés dotés d'un balcon et d'une connexion Wi-Fi gratuite.
-                            Chaque logement dispose d'une terrasse offrant une vue sur le lac, d'une télévision par satellite à écran plat, d'une cuisine bien équipée et d'une salle de bains privative avec bain à remous, sèche-cheveux et articles de toilette gratuits. Vous pourrez profiter d'un micro-ondes, d'un réfrigérateur, d'un grille-pain, d'une bouilloire et d'une machine à café.
-                            Un petit-déjeuner anglais/irlandais complet est servi sur place.
-                            L'espace bien-être du TreeHouses Noszvaj comprend un bain à remous et un sauna.
-                            Vous pourrez pratiquer la randonnée et la pêche dans les environs.
-                            Les couples apprécient particulièrement l'emplacement de cet établissement. Ils lui donnent la note de 9,4 pour un séjour à deux.
-                        </p> */}
+                        <p>{propertyData.description}</p>
+                        <div className={styles.equipementsImagesContainer}>
+                            <div className={styles.equipementTitle}>
+                                <h3 className="font-semibold mb-2">Equipements : </h3>
+                            </div>
+                            <div className="">
+                                <div className="">
+                                    {(propertyData?.equipments != null)?(
+                                        Object.entries(JSON.parse(propertyData?.equipments)).map(([k,v]) => {
+                                            return (
+                                                <div className="grid grid-cols-2 gap-my-10 mb-3 ml-6">
+                                                    <label> • {k} </label>
+                                                    <label>
+                                                        <FontAwesomeIcon
+                                                            className={(v==="1")?"text-green-800 w-6 mx-6":"text-red-800 w-6 mx-6"}
+                                                            size='xs'
+                                                            icon={(v==="1")?faCheck:faTimes}
+                                                        />
+                                                    </label>
+                                                </div>
+                                            );
+                                        })
+                                    ):(
+                                        <div></div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                        <div className={styles.equipementsImagesContainer}>
+                            <div className={styles.equipementTitle}>
+                                <h3 className="font-semibold mb-2">Propriétés dynamique : </h3>
+                            </div>
+                            <div className="">
+                                <div>
+                                    {(propertyData?.dynamic_attributes != null)?(
+                                        Object.entries(JSON.parse(propertyData?.dynamic_attributes)).map(([k,v]) => {
+                                            return (
+                                                <>
+                                                    { (v !== "1" && v !== "0") ?
+                                                        <>
+                                                            <div className="grid grid-cols-2 gap-my-10 mb-3 ml-6">
+                                                                <label className="mt-2"> • {k}</label>
+                                                                <label>
+                                                                    <input
+                                                                        type='text'
+                                                                        className=' w-auto focus:outline-none focus:text-gray-600 p-2 text-center'
+                                                                        value={v}
+                                                                        disabled
+                                                                    />
+                                                                </label>
+                                                            </div>
+                                                        </>
+                                                        :( v === "1" ?
+                                                            <>
+                                                                <div className="grid grid-cols-2 gap-my-10 mb-3 ml-6 ">
+                                                                    <label> • {k}</label>
+                                                                    <label>
+                                                                        <FontAwesomeIcon
+                                                                            className='text-green-800 w-6 mx-6'
+                                                                            size='xs'
+                                                                            icon={faCheck}
+                                                                        />
+                                                                    </label>
+                                                                </div>
+                                                            </>
+                                                            : <>
+                                                                <div className="grid grid-cols-2 gap-my-10 mb-3 ml-6">
+                                                                    <label> • {k}</label>
+                                                                    <label>
+                                                                        <FontAwesomeIcon
+                                                                            className='text-red-800 w-6 mx-6'
+                                                                            size='xs'
+                                                                            icon={faTimes}
+                                                                        />
+                                                                    </label>
+                                                                </div>
+                                                            </>)
+                                                    }
+                                                </>
+                                            );
+                                        })
+                                    ):(
+                                        <div></div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
                     <div className={styles.reservationForm}>
+                        <div className='flex gap-6'>
+                            <label>Nombre de voyageurs</label>
+                            <select className={selectStyle.flatInput} name="nbrVoyager" ref={regInput}>
+                                <option value='1'>1</option>
+                                <option value='2'>2</option>
+                                <option value='3'>3</option>
+                                <option value='4'>4</option>
+                                <option value='5'>5</option>
+                            </select>
+                        </div>
                         <h4>Vérifier vos disponibilités et les prix</h4>
                         <div>
                             <DateRange
                             ranges={[selectionRange]}
-                            minDate={new Date()}
+                            minDate={new Date(new Date().setDate(new Date().getDate() + 1))}
                             rangeColors={["#C64756"]}
                             onChange={handleSelect}
                             retainEndDateOnFirstSelection={false}
                             moveRangeOnFirstSelection={false}
                             />
                             <div className={styles.buttonDiv}>
-                                <AppButton styleparam={buttonStyle.redLgButton} Content="Vérifier les disponibilités" />
+                                <AppButton styleparam={buttonStyle.redLgButton} onClick={handleVerify} Content="Réserver" />
                             </div>
                         </div>
                     </div>
                 </div>
-                    <div className={styles.equipementsImagesContainer}>
-                        <div className={styles.equipementTitle}>
-                            <h3>Equipements</h3>
-                        </div>
-                        <div className={styles.equipementsImages}>
-                            {/* <Image src={property.image} width={40} height={40} objectFit="contain"/>
-                            {/* <Image src="/../public/icons/wifi.png" width={40} height={40} objectFit="contain"/> */}
-                            <Image src="/../public/icons/air-conditioner.png" width={40} height={40} objectFit="contain"/>
-                            <Image src="/../public/icons/cable-car-cabin.png" width={40} height={40} objectFit="contain"/>
-                            <Image src="/../public/icons/kayak.png" width={40} height={40} objectFit="contain"/>
-                            <Image src="/../public/icons/refrigerator.png" width={40} height={40} objectFit="contain"/>
-                            <Image src="/../public/icons/restaurant.png" width={40} height={40} objectFit="contain"/>
-                            <Image src="/../public/icons/room-service-1.png" width={40} height={40} objectFit="contain"/>
-                            <Image src="/../public/icons/room-service-2.png" width={40} height={40} objectFit="contain"/>
-                            <Image src="/../public/icons/swimming-pool.png" width={40} height={40} objectFit="contain"/>
-                            <Image src="/../public/icons/television.png" width={40} height={40} objectFit="contain"/>
-                            <Image src="/../public/icons/towel.png" width={40} height={40} objectFit="contain"/>
-                            <Image src="/../public/icons/washing-machine.png" width={40} height={40} objectFit="contain"/>
-                        </div>
-                    </div>
+
                 <hr/>
                     <div className={styles.mapStyle}>
                         <h3>Carte</h3>
                         <Map/>
                     </div>
+                    <ToastContainer />
+
             </div>
     );
 };
