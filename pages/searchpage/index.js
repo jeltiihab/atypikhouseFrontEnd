@@ -1,13 +1,15 @@
-import styles from "./searchpage.module.css"
+import styles from "./searchPage.module.css"
 import { useRouter } from 'next/router'
 import axios from "axios";
 import React, { useRef, useState, useEffect } from "react";
+import Card from "../../src/components/ui/Cards/Card";
+import SearchBar from "../../src/components/core/SearchBar/SearchBar";
 
 export default function SearchPage(props) {
 
     const router = useRouter()
     let param="";
-    console.log(router.query.location);
+    //console.log(router.query.location);
     switch (router.query.location) {
         case "Paris":
             param="Paris"
@@ -20,6 +22,18 @@ export default function SearchPage(props) {
             break;
         case "Toulon":
             param="Toulon"
+            break;
+        case "Lyon":
+            param="Lyon"
+            break;
+        case "Montpellier":
+            param="Montpellier"
+            break;
+        case "Mayenne":
+            param="Mayenne"
+            break;
+        case "Montpellier":
+            param="Montpellier"
             break;
     }
 
@@ -42,32 +56,24 @@ export default function SearchPage(props) {
 
     return (
         <div>
+        <div className={styles.searchContainerCity}>
+            <SearchBar/>   
+        </div>
+        <div className={styles.titleContainer}>
+        <h2 className={styles.title}>Nos Biens à {param}</h2>
+        </div>
+            <div className={styles.propertiesContainer}>
             {
                 searchedCity?.map((item,i) => {
                     if(item.location === param) {
-                        console.log(item.location)
                         return (
-                            <div className={styles.container} key={i}>
-                                <div className={styles.cardContainer}>
-                                    <div className={styles.image}>
-                                        <img className={styles.image} src="https://images.unsplash.com/photo-1509223197845-458d87318791" alt=""/>
-                                        <div className="mt-4">
-                                            <h1 className="text-2xl font-bold text-gray-700">{item.name}</h1>
-                                            <p className="text-sm mt-2 text-gray-700">Two sizes</p>
-                                            <div className="mt-4 mb-2 flex justify-between pl-4 pr-2">
-                                                <button className="block text-xl font-semibold text-gray-700 cursor-auto">100 euro/nuit</button>
-                                            </div>
-                                            <button className={styles.button}>Réserver
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                <Card propertyData={[item]} />
                         )
                     }
                 })
             }
-
         </div>
+        </div>
+
     )
 }
