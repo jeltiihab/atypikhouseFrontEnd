@@ -1,174 +1,107 @@
 import { Route } from "react-router-dom";
-import React, { useCallback, useState, useEffect, Component } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import classNames from "classnames";
 import styles from "./CardsProperties.module.css";
+import Cabanes from "./Cabanes/Cabanes";
+import Contact from "../../../../pages/contact";
 import axios from "axios";
 import InfoCards from "./InfoCards";
 import property from "../../../../pages/property";
 import Link from 'next/link';
 import propertiesData from "../../../data/propertiesData";
+import Pagination from '../Pagination/Pagination'
 import ReactPaginate from 'react-paginate';
 import { useRouter } from "next/router";
 import { Field, Formik } from "formik";
 import FilAriane from "../../ui/FilAriane/FilAriane";
 import arianeStyle from "../../ui/FilAriane/FilAriane.module.css";
-import Pagination from '../Pagination/Pagination'
-import { start } from "nprogress";
 
 
 
-const CardsProperties = () => {
+
+
+
+const CardsProperties = ({ navigationData, currentRoute, setCurrentRoute, props }) => {
 
     const [cards, setCards] = useState([]);  // revoir le axios get d'ihab
-    const [cardsCopy, setCardsCopy] = useState([]);  // revoir le axios get d'ihab
-    const [types, setTypes] = useState([]);  // revoir le axios get d'ihab
-    const [loading, setLoading] = useState(false);  // revoir le axios get d'ihab
     const [currentPage, setCurrentPage] = useState(1);
     const [cardsPerPage] = useState(10); // nombre de cards affiché 
 
-    // const state = {
-    //     elementCards: cards,
-    //     cardsCopy: []
-    // }
+    const getNavProp = useCallback((item) => {
+        switch (item) {
+            case "Cabanes":
+                return "Cabanes";
 
-  
+            case "Bulles":
+                return "Bulles";
 
-    
-    // get data properties
+            case "En Amoureux":
+                return "En Amoureux";
 
-    const getproperties = () => {
-        axios.get('/properties')
-            .then((response) => {
+            case "En famille":
+                return "En famille";
 
-                //setCards(response.data)
-                const cardsData = response.data['hydra:member'];
-                setCards(cardsData);
-                setLoading(false)
-                // console.log("dataaa " + cardsData);
-
-            })
-            .catch((error) => {
-                console.log(`We have a server error`, error);
-            });
-
-    }
-
-    useEffect((getproperties), [])
-
-
-    const getproperty = () => {
-        axios.get('/property_types')
-            .then((response) => {
-                //setCards(response.data)
-                const propertyData = response.data['hydra:member'];
-                setTypes(propertyData);
-                // console.log(" propertyData " + propertyData);
-
-            })
-            .catch((error) => {
-                console.log(`We have a server error`, error);
-            });
-
-    }
-
-    useEffect((getproperty), [])
-
-
-
-    const handleSelectType = (currentItem) => {
-        
-        let cardsCopy;
-
-        if (currentItem === "") {
-            cardsCopy = cards;
-            console.log("Cabanes element " + cardsCopy)
+            case "A l aventure":
+                return "A l aventure";
         }
+    }, []);
 
-        else {
-            cardsCopy = cards.filter( (elt, req) => ( elt.name === currentItem
-            ));
+    // pagination
 
-                console.log(cardsCopy)
-            
-        }
-
-     
-        setCardsCopy(cardsCopy);
-
-        // console.log("state.cardsCopy" + cardsCopy.id)
-
-        
-    }
-
-   
-
-    //
     const indexofLastCards = currentPage * cardsPerPage;
     const indexOfFirstCards = indexofLastCards - cardsPerPage;
-    const currentCards = cardsCopy.slice(indexOfFirstCards, indexofLastCards);
+    const currentCards = cards.slice(indexOfFirstCards, indexofLastCards);
 
     const pagination = (pageNumber) => setCurrentPage(pageNumber)
 
 
 
-
-    // 
     return (
 
         <>
             <FilAriane prevPageAriane="Acceuil" currentPageAriane="Nos Biens" arianeStyle="px-10" />
-            
-            <React.Fragment>
-
-                <div className={styles.containerNav}>
-                    <div className={styles.contentMove}>
-                        <nav className={styles.centerbar}>
-                            {types.map((currentItem, index) => (
-                                <Link href={{ pathname: '/properties', query: { currentItem: currentItem.type } }}>
-
-                                    <div
-                                        key={index}
-                                        className={classNames([
-                                            styles.tabItemActive
-                                            // styles.tabItem, currentItem.type === currentItem && styles.tabItemActive,
-                                        ])}
-                                        onClick={(event) => {
-                                            handleSelectType(currentItem.type)
-                                        }}
-
-                                    >
-                                        <span>{currentItem.type}</span>
-
-                                      
-
-                                    </div>
-                                </Link>
-
-                                
-
-                            ))
-
-                            }
-                        </nav>
-                    </div>
+            <div className={styles.containerNav}>
+                <div className={styles.contentMove}>
+                    <nav className={styles.centerbar}>
+                        {navigationData.map((item, index) => (
+                            <div
+                                key={index}
+                                className={classNames([
+                                    styles.tabItem,
+                                    currentRoute === item && styles.tabItemActive,
+                                ])}
+                                onClick={() => setCurrentRoute(item)}
+                            >
+                                <span>{getNavProp(item)}</span>
+                            </div>
+                        ))
+                        }
+                    </nav>
                 </div>
+                    {propertiesData?.map(item => (
+                        <Link href={{ pathname: '/property', query: {id: item.id} }}>
+                            <div>
+                            <div className="">
+                                <div className={styles.gridContent}>
+                                    <div className={styles.place}>
+                                        <div className="grid grad-cols-3 gap-4">
+                                            <InfoCards id={item.id} cards={currentCards}/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </Link>
+                ))}
 
                 <Pagination
-                    totalCards={cards.length}
+                    totalCards={propertiesData.length}
                     cardsPerPage={cardsPerPage}
-                    pagination={pagination} />
-
-
-                <InfoCards
-                    // cards={currentCards}
-                    cardsCopy={cardsCopy}
-                    leading={loading}
+                    pagination={pagination}
                 />
-               
-            </React.Fragment>
 
+            </div>
 
-           
         </>
 
     )
@@ -176,5 +109,6 @@ const CardsProperties = () => {
 
 
 export default CardsProperties;
+
 
 
