@@ -1,24 +1,87 @@
+import { Formik, Form, ErrorMessage } from 'formik';
 import Link from 'next/link';
 import styles from './AdressAddProperties.module.css'
 import buttonStyle from '../../ui/Buttons/Buttons.module.css';
 import AppButton from '../../ui/Buttons/Buttons';
 import Input from "../../ui/FormInputs/Input"
 import axios from "axios";
-import { Field, ErrorMessage } from "formik"
-// import * as yup from "yup"
+import * as yup from "yup"
 
 
 
 // https://developer.here.com/blog/street-address-validation-with-reactjs-and-here-geocoder-autocomplete
-function AdressAddProperties(props) {
+function AdressAddProperties() {
 
-    // const {street, ...rest} = props
-     const {street, streetNumber, postalCode, city, country, region, ...rest} = props
+    const postalCodeRegExp = /^(?:[0-8]\d|9[0-8])\d{3}$/;
+
+    // Initial Values of form
+    const initialValues = {
+        adress: "",
+        city: "",
+        country: "",
+        postalCode: "",
+
+    };
+
+    const handleOnPerfect = async (values) => {
+
+
+        // Assing data with converted date to data
+        const data = { ...values };
+        console.log(data);
+        // Making post http request
+        const response = await axios.post("http://localhost:8000/api/adress", data)
+            .catch((err) => {
+                if (err && err.response)
+                    console.log("Error", err);
+            });
+
+        // if there is a response and a data then success
+        if (response && response.data) {
+            setSuccess(response.data.message);
+        }
+        alert("OK")
+    }
+
+    // Adding the schema for User with Yup
+    const userschema = yup.object().shape({
+        adress: yup
+            .string()
+            .required("L'adresse est un champ obligatoire")
+            .min(5, "L'adresse saisie doit comporter au moins 5 caractères"),
+
+        city: yup
+            .string()
+            .required("La ville est un champ obligatoire")
+            .min(3, "La ville doit comporter au moins 3 caractères"),
+
+
+        country: yup
+            .string()
+            .required("Le pays est un champ obligatoire")
+            .min(3, "Le pays doit comporter au moins 3 caractères"),
+
+        postalCode: yup
+            .string()
+            .matches(postalCodeRegExp, 'Le code postal n\'est pas valide'),
+
+    });
+
 
     return (
         <div className={styles.container}>
             <div className={styles.itemsContent}>
                 <div className={styles.AdressContainer}>
+
+                    <Formik
+                        initialValues={{
+                            ...initialValues
+                        }}
+                        validationSchema={userschema}
+                        onSubmit={handleOnPerfect}
+                    >
+
+                        {(formik, errors, touched) => (
                             <div className={styles.input}>
                                 <div className={styles.containerTitle}>
                                     <svg class="inline align-text-top" height="24px" viewBox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg" fill="#000000">
@@ -30,30 +93,34 @@ function AdressAddProperties(props) {
                                     </svg>
                                     <h1 class={styles.titleAdress}>Veuillez ajouter l'adresse de votre biens</h1>
                                 </div>
+                                <Form autoComplete="off">
+                                    <div>
+                                        <Input className={styles.adress} label="Adresse" name="adress" type="text" value={this.props.adress}/>
 
-                                    <div className={styles.allAdress}>
-                                         <Input className={styles.adress} label="Numero" name={streetNumber} type="number" min={0}/>  
-                                        <Input className={styles.adress} label="Voie" name={street} type="text"/> 
                                         {/* <input placeholder="Adresse" class={styles.adress} /> */}
                                     </div>
 
-                                    <div className={styles.allAdress}>
-                                        <Input className={styles.adress} label="Code Postal" name={postalCode} type="number" min={0} /> 
-                                        <Input className={styles.adress} label="Ville" name={city} type="text"/> 
-                                        
-                                        {/* <Field name={street}/> */}
+                                    <div>
+                                        <Input className={styles.adress} label="Code Postal" name="postalCode" type="number" min={0} value={this.props.postalCode}/>
                                     </div>
 
-                                    <div className={styles.allAdress}>
-                                        <Input className={styles.adress} label="Pays" name={country} type="text"/> 
-                                        <Input className={styles.adress} label="Pays" name={region} type="text"/> 
+                                    <div>
+                                        <Input className={styles.adress} label="Ville" name="city" type="text" value={this.props.city} />
+                                        <Input className={styles.adress} label="Pays" name="country" type="text" value={this.props.county} />
                                     </div>
 
-        
+                                    <Link href="" >
+
+                                        <AppButton Content="Parfait" styleparam={buttonStyle.blackWideButton} />
                                     
+                                    </Link>
+                                   
+                                </Form>
                             </div>
 
-                       
+                        )}
+
+                    </Formik>
 
 
 
