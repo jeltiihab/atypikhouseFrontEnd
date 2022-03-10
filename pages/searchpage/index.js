@@ -1,4 +1,4 @@
-import styles from "./searchPage.module.css"
+import styles from "./SearchPage.module.css"
 import { useRouter } from 'next/router'
 import axios from "axios";
 import React, { useRef, useState, useEffect } from "react";
