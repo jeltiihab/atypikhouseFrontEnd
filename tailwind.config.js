@@ -5,7 +5,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        body: ['Abel'],
+        custom1: ['Custom-1', 'sans-serif'],
       },
       backgroundColor: theme => ({
         ...theme('colors'),
@@ -15,6 +15,7 @@ module.exports = {
       })
     },
     screens: {
+
       'sm': '360px',
       // => @media (min-width: 640px) { ... }
 
@@ -33,7 +34,9 @@ module.exports = {
 
   },
   variants: {
-    extend: {},
+    display: ["group-hover"],
+    textColor: ['group-hover'],
   },
-  plugins: [],
+  plugins: [
+  ],
 }

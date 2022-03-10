@@ -34,6 +34,18 @@ export default function DropDown() {
                                             <div className="py-1">
                                         <Menu.Item>
                                             {({ active }) => (
+                                                <>
+                                                <Link href="/profil">
+                                                    <a
+                                                        className={
+                                                            active
+                                                                ? styles.menuItemActive
+                                                                : styles.menuItemNonActive
+                                                        }
+                                                    >
+                                                        Profile
+                                                    </a>
+                                                </Link>
                                                     <a onClick={logoutUser}
                                                         className={
                                                             active
@@ -43,6 +55,7 @@ export default function DropDown() {
                                                     >
                                                         Logout
                                                     </a>
+                                                </>
                                             )}
                                         </Menu.Item>
                                             </div>

@@ -1,11 +1,13 @@
-import { useRouter } from "next/router";
+import { useRouter } from "next/router"
+import { useContext } from 'react'
+import AuthContext from '../context/AuthContext'
 const withAuth = (WrappedComponent) => {
   return (props) => {
     // checks whether we are on client / browser or server.
     if (typeof window !== "undefined") {
       const Router = useRouter();
 
-      const accessToken = localStorage.getItem("accessToken");
+      const accessToken = localStorage.getItem("access_token");
 
       // If there is no access token we redirect to "/" page.
       if (!accessToken) {

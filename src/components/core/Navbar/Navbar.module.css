@@ -1,5 +1,5 @@
 .navbar {
-    @apply sm:flex md:flex flex-row items-center justify-between px-8 h-20  bg-white shadow-md;
+    @apply sm:flex md:flex flex flex-row items-center justify-between px-8 h-20  bg-white shadow-md;
 }
 
 .logo {
@@ -27,5 +27,5 @@
 }
 
 .redWideButton {
-    @apply bg-danger w-48 rounded-full text-white font-bold py-2 px-2 md:hidden lg:flex sm:hidden justify-center;
+    @apply hidden md:flex bg-danger w-48 rounded-full text-white font-bold py-2 px-2 md:hidden lg:flex sm:hidden justify-center;
 }

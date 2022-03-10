@@ -1,5 +1,5 @@
 .BannerCalendar {
-    @apply hidden md:grid px-8 absolute rounded-sm bottom-0 w-auto md:h-20 sm:h-auto bg-white shadow-2xl grid md:grid-cols-5 grid-cols-1 gap-x-6
+    @apply hidden md:grid px-8 absolute rounded-sm bottom-0 w-auto md:h-20 sm:h-auto bg-white shadow-2xl grid md:grid-cols-1 md:grid-cols-5 grid-cols-1 gap-x-6
 }
 .buttonDiv {
     @apply self-center

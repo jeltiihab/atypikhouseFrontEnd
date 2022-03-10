@@ -15,7 +15,6 @@ import axios from "axios";
 import SmallCardsData from "../../src/data/smallCards"
 import { useRouter } from "next/router";
 import SearchBar from "../../src/components/core/SearchBar/SearchBar"
-import Head from "next/head";
 
 
 const Home = () => {
@@ -23,17 +22,13 @@ const Home = () => {
     const [cards, setCards] = useState([]);
     const router = useRouter();
 
-
     // Getting data for the three cards in the home page ( 3 Only )    
     const getCardsData = ()  => {
-        axios.get('/properties')
+        axios.get('/properties/three-last')
             .then( (response) => {
-                //setCards(response.data)
-                const cardsData = response.data['hydra:member'].sort(function(a,b){
-                    return new Date(b.createAt) - new Date(a.createAt);
-                }).slice(0, 3);
+                const cardsData = response.data
                 setCards(cardsData);
-                console.log(cardsData);
+                //console.log(cardsData);
             })
             .catch((error) => {
                 console.log(`We have a server error`, error);
@@ -43,13 +38,6 @@ const Home = () => {
 
     return (
         <div className={styles.homeContainer}>
-            <Head>
-                <title>Bienvenue sur Atypik House</title>
-                <meta name="description" content="Découvrez atypik house"/>
-                <meta property="og:title" content="Bienvenue sur Atypik House"/>
-                <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
-                <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
-            </Head>
                 <div className={styles.banner}>
                     <Image src={BannerImage} layout="fill" objectFit="fill" loading="eager"/>
                     <div className={styles.bannerTitles}>
@@ -77,7 +65,7 @@ const Home = () => {
                             </a>
                         </Link>
                     </div>
-                    <SearchBar/>
+                    <SearchBar />
                 </div>
             <div className={styles.ourOffres}>
                 <div className={styles.ourOffresTitle}>
@@ -284,6 +272,7 @@ const Home = () => {
                     </div>
                 </div>
         </div>
+
     );
 };
 

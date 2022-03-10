@@ -36,9 +36,11 @@ const Navbar = ({ navigationData, currentRoute, setCurrentRoute }) => {
                     </li>
                 ))}
             </ul>
+            <Link href="/register">
             <button className={styles.redWideButton}>
-                Devenir partenaire
+                Devenir propriétaire
             </button>
+            </Link>
             <div>
                 <DropDown/>
             </div>
