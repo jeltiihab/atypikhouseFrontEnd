@@ -51,7 +51,6 @@ function MyApp({ Component, pageProps }) {
       let [location, setLocation] = useState("/")
 
         useEffect(() => {
-            console.log("edêmd")
             setLocation(window.location.pathname)
             console.log(window.location.pathname)
         }, []);

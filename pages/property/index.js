@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import Map from '../../src/components/ui/Map/Map'
+import MapBox from '../../src/components/ui/Map/Map'
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { DateRange } from 'react-date-range';
@@ -159,7 +159,7 @@ const Property = () => {
                                     {(propertyData?.equipments != null)?(
                                         Object.entries(JSON.parse(propertyData?.equipments)).map(([k,v]) => {
                                             return (
-                                                <div className="grid grid-cols-2 gap-my-10 mb-3 ml-6">
+                                                <div className="grid grid-cols-2 gap-my-10 mb-3 ml-6" key={k}>
                                                     <label> • {k} </label>
                                                     <label>
                                                         <FontAwesomeIcon
@@ -189,7 +189,7 @@ const Property = () => {
                                                 <>
                                                     { (v !== "1" && v !== "0") ?
                                                         <>
-                                                            <div className="grid grid-cols-2 gap-my-10 mb-3 ml-6">
+                                                            <div className="grid grid-cols-2 gap-my-10 mb-3 ml-6" key={k}>
                                                                 <label className="mt-2"> • {k}</label>
                                                                 <label>
                                                                     <input
@@ -269,7 +269,7 @@ const Property = () => {
                 <hr/>
                     <div className={styles.mapStyle}>
                         <h3>Carte</h3>
-                        <Map/>
+                        <MapBox/>
                     </div>
                     <ToastContainer />
 

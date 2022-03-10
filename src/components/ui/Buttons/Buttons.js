@@ -1,11 +1,9 @@
 import React from "react";
-import classNames from "classnames";
-import buttonStyle from "./Buttons.module.css"
 
-const AppButton = (props) => {
+const AppButton = (props, rest) => {
     return (
 
-            <button type="button" className={props.styleparam}>
+            <button type="button" className={props.styleparam} onClick={props.onClick} {...rest} >
                 {props.Content}
             </button>
     );

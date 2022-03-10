@@ -5,11 +5,15 @@ export default [
     },
     {
         name: 'Nos biens',
-        linkParent: '/login',
+        linkParent: '/search',
     },
     {
         name: 'Contact',
         linkParent: '/contact',
+    },
+    {
+        name: 'A propos',
+        linkParent: '/apropos',
     },
     {
         name: 'FAQ',

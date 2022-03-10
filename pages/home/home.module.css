@@ -1,12 +1,10 @@
 .homeContainer {
-    @apply font-body
+    @apply justify-between
 }
 .banner {
     @apply  h-[400px] relative grid place-items-center
 }
-.BannerCalendar {
-    @apply hidden md:grid p-5 absolute rounded-sm bottom-0 w-auto md:h-20 sm:h-auto bg-white shadow-2xl grid md:grid-cols-5 grid-cols-1 gap-x-6
-}
+
 .formInputs {
     @apply shadow appearance-none rounded-full w-40 py-2 px-3 mb-3 text-center;
 }
@@ -58,8 +56,16 @@
     @apply w-full mx-auto rounded-lg bg-white border border-gray-200 p-5 text-gray-800 font-light mb-6
 }
 .SerachBar {
-    @apply sm:flex bg-white absolute top-6 rounded-full md:hidden items-center border-2 px-4 py-1
+    @apply flex sm:flex bg-white absolute top-6 rounded-full md:hidden items-center border-2 px-4 py-1
 }
 .searchIcon {
     @apply bg-danger rounded-full text-white p-1 h-8 cursor-pointer
 }
+.smallcardsContainer {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4
+}
+
+.cardsContainer {
+    @apply grid md:grid-cols-4 sm:grid-cols-1 m-10
+}
+

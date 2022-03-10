@@ -1,5 +1,5 @@
 .container {
-    @apply font-body text-lg
+    @apply text-lg
 }
 .titles{
     @apply text-4xl text-green-800 my-5

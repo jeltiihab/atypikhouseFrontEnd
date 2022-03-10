@@ -1,5 +1,4 @@
 import { createContext, useState, useEffect } from 'react'
-import jwt_decode from "jwt-decode";
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { ToastContainer, toast } from 'react-toastify'
@@ -30,7 +29,7 @@ export const AuthProvider = ({children}) => {
             headers:{
                 'Content-Type':'application/json'
             },
-        })
+          })
 
         if(response.status === 200 && response.data.message == "Unauthorized") {
             toast.error("veuillez vérifier votre email/mot de passe", {theme: 'colored'});

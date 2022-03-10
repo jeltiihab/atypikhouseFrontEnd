@@ -1,26 +1,27 @@
-import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
-import React, { Component } from 'react';
-export class MapContainer extends Component {
+import {useState} from 'react';
+import ReactMapGL, {Marker} from 'react-map-gl';
 
-    render() {
-        const containerStyle = {
-            position: 'relative',
-            width: '90vw',
-            height: '90vh',
-        }
-        return (
-                <Map containerStyle={containerStyle} google={this.props.google} zoom={14} lat={60.955413} lng={30.337844}>
-                    <Marker onClick={this.onMarkerClick}
-                            name={'Current location'} />
 
-                    <InfoWindow onClose={this.onInfoWindowClose}>
+const MAPBOX_TOKEN = 'pk.eyJ1IjoiaWhhYmp0IiwiYSI6ImNsMGNuMjh3djAwdHQzcG56am90aDYxdzkifQ.-j9rHtCxCCkBGLWa4QuWYA'
+function Map() {
 
-                    </InfoWindow>
-                </Map>
-        );
-    }
+    const [viewport, setViewport] = useState({
+        latitude: 48.8566,
+        longitude: 2.3522,
+        zoom: 8
+    });
+
+    return (
+        <ReactMapGL
+            style={{width: '100%', height: 600}}
+            mapboxAccessToken={MAPBOX_TOKEN}
+            {...viewport}
+            onMove={evt => setViewport(evt.viewport)}
+            mapStyle="mapbox://styles/mapbox/streets-v9"
+        >
+            <Marker longitude={2.3522} latitude={48.8566} color="red" />
+        </ReactMapGL>
+    );
 }
 
-export default GoogleApiWrapper({
-    apiKey: ("AIzaSyC2VKY0e96PKPg-Nbdz_SvYZrMGO1fHkqo")
-})(MapContainer)
+export default Map;

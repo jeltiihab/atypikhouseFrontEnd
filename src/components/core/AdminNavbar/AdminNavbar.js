@@ -12,12 +12,12 @@ export default function AdminNavbar() {
                 <div className="flex items-center justify-start">
                 <Link href="/admin">
                     <a className="text-xl font-bold flex items-center lg:ml-2.5">
-                        <Image src={logo} height={55} width={190}/>
+                        <Image src={logo} height={40} width={190}/>
                     </a>
                 </Link>
                 </div>
                 <div className="flex items-center">
-                <div className="hidden lg:flex items-center">
+                <div className="lg:flex items-center">
                 <DropDown style={{padding: 0}}/>
                 </div>
                 </div>

@@ -10,12 +10,12 @@ function ProfilForm() {
                 <div className={styles.titleInfo}>Information personnelle</div>
             </div>
             <div className={styles.container}>
-                <form method="PUT" action="" autocomplete="">
+                <form method="PUT" action="" autoComplete="">
 
                     <div className={styles.content}>
                         <div className={styles.containerLeft}>
                             <div className={styles.z}>
-                                <div className={styles.text} for='name'>NOM Prénom</div>
+                                <div className={styles.text} htmlFor='name'>NOM Prénom</div>
                                 <div className={styles.name}>intitulé du nom</div>
                             </div>
                         
@@ -32,7 +32,7 @@ function ProfilForm() {
                     <div className={styles.content}>
                         <div className={styles.containerLeft}>
                             <div className={styles.z}>
-                                <div className={styles.text} for='name'>Mail</div>
+                                <div className={styles.text} htmlFor='name'>Mail</div>
                                 <div className={styles.name}>intitulé du mail</div>
 
                             </div>
@@ -50,7 +50,7 @@ function ProfilForm() {
                     <div className={styles.content}>
                         <div className={styles.containerLeft}>
                             <div className={styles.z}>
-                                <div className={styles.text} for='name'>Mot passe</div>                                
+                                <div className={styles.text} htmlFor='name'>Mot passe</div>                                
                             </div>
 
                             {/* <div className={styles.z}>
