@@ -114,7 +114,7 @@ function Index() {
 
   useEffect(() => {
       if(!router.isReady) return;
-    axios.get('/propertie/user')
+    axios.get('/properties/user')
       .then( (response) => {
         if (response.status == 200 && response?.data){
           const propertieDataMemo = response?.data;
