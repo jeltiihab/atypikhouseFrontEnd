@@ -129,13 +129,13 @@ const Property = () => {
                 <div className={styles.galleryContainer}>
                     {(propertyData?.images != undefined && propertyData?.images != null)?
                         <>
-                        <Carousel responsive={responsive} ssr={true}>
-                            <img className={styles.propertyPictures} src={"http://api.f2i-cw1-ij-hc-nag.fr/uploads/"+JSON.parse(propertyData?.images)?.img0}/>
-                            <img className={styles.propertyPictures} src={"http://api.f2i-cw1-ij-hc-nag.fr/uploads/"+JSON.parse(propertyData?.images)?.img1}/>
-                            <img className={styles.propertyPictures} src={"http://api.f2i-cw1-ij-hc-nag.fr/uploads/"+JSON.parse(propertyData?.images)?.img2}/>
-                            <img className={styles.propertyPictures} src={"http://api.f2i-cw1-ij-hc-nag.fr/uploads/"+JSON.parse(propertyData?.images)?.img3}/>
-                            <img className={styles.propertyPictures} src={"http://api.f2i-cw1-ij-hc-nag.fr/uploads/"+JSON.parse(propertyData?.images)?.img4}/>
-                        </Carousel>
+                            <Carousel responsive={responsive} ssr={true}>
+                                <img className={styles.propertyPictures} src={"https://api.f2i-cw1-ij-hc-nag.fr/uploads/"+JSON.parse(propertyData?.images)?.img0}/>
+                                <img className={styles.propertyPictures} src={"https://api.f2i-cw1-ij-hc-nag.fr/uploads/"+JSON.parse(propertyData?.images)?.img1}/>
+                                <img className={styles.propertyPictures} src={"https://api.f2i-cw1-ij-hc-nag.fr/uploads/"+JSON.parse(propertyData?.images)?.img2}/>
+                                <img className={styles.propertyPictures} src={"https://api.f2i-cw1-ij-hc-nag.fr/uploads/"+JSON.parse(propertyData?.images)?.img3}/>
+                                <img className={styles.propertyPictures} src={"https://api.f2i-cw1-ij-hc-nag.fr/uploads/"+JSON.parse(propertyData?.images)?.img4}/>
+                            </Carousel>
                         </>
                         :
                         <></>}
