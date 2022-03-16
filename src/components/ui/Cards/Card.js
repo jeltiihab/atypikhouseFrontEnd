@@ -17,7 +17,7 @@ const PropertyCard = (props) => {
                                 {(data?.images != undefined && data?.images != null)?
                                     <>
                                         <a href="#">
-                                            <Image className="rounded-t-lg" src={"http://api.f2i-cw1-ij-hc-nag.fr/uploads/"+JSON.parse(data?.images)?.img0} layout="fill" objectFit="fill"/>
+                                            <Image className="rounded-t-lg" src={"https://api.f2i-cw1-ij-hc-nag.fr/uploads/"+JSON.parse(data?.images)?.img0} layout="fill" objectFit="fill"/>
                                         </a>
                                     </>:
                                     <></>}
