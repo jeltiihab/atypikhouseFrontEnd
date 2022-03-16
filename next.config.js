@@ -6,7 +6,7 @@ module.exports = withPWA({
         register: true,
         skipWaiting: true,
     },
-images: {
-    domains: ['api.f2i-cw1-ij-hc-nag.fr'],
-  },
+    images: {
+        domains: ['api.f2i-cw1-ij-hc-nag.fr'],
+    },
 });
