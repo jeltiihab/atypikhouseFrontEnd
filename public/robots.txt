@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+sitemap:https://www.f2i-cw1-ij-hc-nag.fr/api/sitemap
