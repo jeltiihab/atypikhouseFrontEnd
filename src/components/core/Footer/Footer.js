@@ -14,7 +14,7 @@ const Footer = () => {
             <div className={styles.footerContainer}>
                 <div className={styles.Description}>
                     <div className={styles.footerLogo}>
-                        <Image src={miniLogo} width={50} height={50} objectFit="fill"/>
+                        <Image src={miniLogo} width={50} height={50} objectFit="fill" alt="logo atypik house"/>
                     </div>
                     <div className={styles.footerDescription}>
                         Pour toutes les personnes partageant la même passion d'aimer la nature et les voyages. Que vous soyez propriétaire d'un hébergement insolite ou locataire, c'est l'endroit idéal pour commencer une nouvelle aventure.

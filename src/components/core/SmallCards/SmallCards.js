@@ -12,6 +12,7 @@ function SmallCard({img, location, distance, handle}) {
                     className={styles.img}
                     src={img}
                     layout="fill"
+                    alt= "nuit insolite ville france image"
                 />
             </div>
             {/* Right */}

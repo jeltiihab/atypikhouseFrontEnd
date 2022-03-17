@@ -45,7 +45,7 @@ const Home = () => {
 
             />
                 <div className={styles.banner}>
-                    <Image src={BannerImage} layout="fill" objectFit="fill" loading="eager"/>
+                    <Image src={BannerImage} layout="fill" objectFit="fill" loading="eager" alt="Atypik House Meilleure site d'hébergements insolites sur le web"/>
                     <div className={styles.bannerTitles}>
                         <Typewriter   options={{
                             strings: ['<span style="color: indianred">ATYPIK</span> HOUSE', 'Trouvez votre prochain <span style="color: darkgreen">séjour</span> dans plus de <span style="color: indianred">460 biens !</span>'],
@@ -84,7 +84,7 @@ const Home = () => {
             <div className={styles.ourOffresTitle}>
                 <h2 className={styles.Titles}>Nous rejoindre <FontAwesomeIcon className={styles.heartIcon} size="xs" icon={faHeart} /></h2>
                 <div className={styles.joinUsContainer}>
-                    <Image src={JoinUsImage} layout="fill" objectFit="fill"/>
+                    <Image src={JoinUsImage} layout="fill" objectFit="fill" alt="Rejoignez-nous et commencer une aventure d'hébergement insolite"/>
                     <div className={styles.layerDiv}></div>
                     <div className={styles.label}>
                         <Typewriter   options={{

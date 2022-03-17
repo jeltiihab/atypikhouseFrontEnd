@@ -13,7 +13,7 @@ const Navbar = ({ navigationData, currentRoute, setCurrentRoute }) => {
             <div className={styles.logo}>
             <Link href="/">
                 <a>
-                <Image src={Logo} layout="fill" objectFit="contain"/>
+                <Image src={Logo} layout="fill" objectFit="contain" alt="logo atypik house"/>
                 </a>
             </Link>
             </div>

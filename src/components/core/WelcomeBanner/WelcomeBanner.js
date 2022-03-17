@@ -10,7 +10,7 @@ const WelcomeBanner = () => {
                 {/* START Left side of the login page */}
                 <div className={styles.rightSide}>
                     <div>
-                        <Image src={WelcomeImage} layout="fill" objectFit="fill"/>
+                        <Image src={WelcomeImage} layout="fill" objectFit="fill" alt="Hébergement insolite nuit insolite chez atypik house"/>
                         <div className={styles.layerDiv}>
                         </div>
                     </div>
