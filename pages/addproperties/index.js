@@ -27,6 +27,7 @@ import FullPageLoader from "../../src/components/ui/Spinner/FullPageLoader";
 import {toast} from "react-toastify";
 //import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import {NextSeo} from "next-seo";
 
 export default function addproperty() {
 
@@ -135,6 +136,9 @@ export default function addproperty() {
   return (
     // eslint-disable-next-line react/jsx-filename-extension
     <div className='grid gap-4 md:grid-cols-2 sm:grid-cols-1 md-grid-cols-1'>
+      <NextSeo
+          title="AtypikHouse - Ajouter votre hébergement insolite"
+      />
       <div className='h-full relative'>
         <div>
           <Image src={PropertyImage} layout='fill' objectFit='fill' />

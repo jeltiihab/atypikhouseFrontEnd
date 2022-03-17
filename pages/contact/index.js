@@ -1,8 +1,13 @@
 import React from 'react';
+import {NextSeo} from "next-seo";
 
 export default function contact() {
     return (
         <div className='w-full'>
+            <NextSeo
+                title="AtypikHouse - contactez nous"
+                description="Dormir dans l'un des 1000 hébergements insolites de France : Cabanes dans les arbres, cabanes sur l'eau, spa, yourtes, roulottes, tipis.."
+            />
             <div className='bg-gradient-to-b from-green-800 to-green-600 h-96'></div>
             <div className='max-w-5xl mx-auto px-6 sm:px-6 lg:px-8 mb-12'>
                 <div className='bg-white w-full shadow rounded p-8 sm:p-12 -mt-72'>

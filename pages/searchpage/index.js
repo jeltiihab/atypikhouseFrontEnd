@@ -1,9 +1,10 @@
-import styles from "./SearchPage.module.css"
+import styles from "./searchPage.module.css"
 import { useRouter } from 'next/router'
 import axios from "axios";
 import React, { useRef, useState, useEffect } from "react";
 import Card from "../../src/components/ui/Cards/Card";
 import SearchBar from "../../src/components/core/SearchBar/SearchBar";
+import {NextSeo} from "next-seo";
 
 export default function SearchPage(props) {
 
@@ -56,6 +57,10 @@ export default function SearchPage(props) {
 
     return (
         <div>
+            <NextSeo
+                title="AtypikHouse - Plus de 1000 hébergement insolite"
+                description="Profitez de votre séjour en Moselle le temps des vacances ou d'un week-end pour changer vos habitudes en osant un hébergement insolite."
+            />
         <div className={styles.searchContainerCity}>
             <SearchBar/>   
         </div>

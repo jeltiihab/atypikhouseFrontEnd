@@ -13,6 +13,7 @@ import { userschema } from "../../utils/Schemas"
 import { useRouter } from 'next/router'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import {NextSeo} from "next-seo";
 
 const Index = () => {
 
@@ -107,6 +108,10 @@ const Index = () => {
 
     return (
         <div>
+            <NextSeo
+                title="AtypikHouse - Créer vote compte"
+                description="Vous recherchez des vacances insolites où passer une nuit dans les arbres, une nuit en roulotte ou pourquoi pas dans une de nos yourtes mongoles ?"
+            />
             <Formik
                 initialValues={{
                     ...initialValues

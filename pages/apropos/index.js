@@ -1,8 +1,13 @@
 import React from 'react';
+import {NextSeo} from "next-seo";
 
 export default function apropos() {
     return (
         <div className='m-20 shadow-2xl md:p-10 bg-white p-24 rounded font-body sm:p-4 sm:m-4'>
+                <NextSeo
+                    title="AtypikHouse - à propos de nous"
+                    description="En France ou en europe, réservez en ligne une nuit ou un week end dans un hébergement insolite. Bulle, cabane dans les arbres, yourte ou igloo.."
+                />
             <strong>10 ans d'expertise et de passion</strong>
             <br />
             Créée en 2011 à Paris, l’agence AWA répond aux attentes de ses clients

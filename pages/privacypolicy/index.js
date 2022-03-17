@@ -1,9 +1,14 @@
 import React from 'react';
+import {NextSeo} from "next-seo";
 
 export default function privacypolicy() {
 
     return (
-        <div className='m-20 shadow-2xl p-10 bg-white p-24 rounded font-body'> 
+        <div className='m-20 shadow-2xl p-10 bg-white p-24 rounded font-body'>
+                <NextSeo
+                    title="AtypikHouse - Règles de confidentialité et conditions d'utilisation"
+                    description="Règles de confidentialité AtypikHouse. Lorsque vous utilisez nos services, vous nous faites confiance pour le traitement de vos informations."
+                />
         <h2>Définitions</h2>
                 <p><b>Client :</b> tout professionnel ou personne physique capable au sens des articles 1123 et suivants du Code civil, ou personne morale, qui visite le Site objet des présentes conditions générales.<br/>
                 <b>Prestations et Services :</b> <a href="https://www.atypikhouse.com">https://www.atypikhouse.com</a> met à disposition des Clients :</p>

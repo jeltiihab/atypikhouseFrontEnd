@@ -11,7 +11,7 @@ const PropertyCard = (props) => {
             <>
                 {props.propertyData?.map((data, i) => {
                     return (
-                        <Link href={{ pathname: 'property', query: { id: data.id } }}>
+                        <Link href={{ pathname: 'property', query: { id: data.id } }} key={i}>
                         <div className={styles.cardContainer} key={i}>
                             <div className={styles.imageContainer}>
                                 {(data?.images != undefined && data?.images != null)?

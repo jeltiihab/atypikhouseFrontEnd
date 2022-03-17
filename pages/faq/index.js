@@ -1,9 +1,14 @@
 import React from 'react';
+import {NextSeo} from "next-seo";
 
 export default function faq() {
 
     return (
         <div>
+            <NextSeo
+                title="AtypikHouse - FAQ"
+                description="AtypikHouse, Le site incontournable pour choisir un hébergement insolite. Trouvez l'hôtel ou la nuit insolite de vos rêves!"
+            />
             <section className="text-gray-700">
                 <div className="container px-5 py-24 mx-auto">
                     <div className="text-center mb-20">

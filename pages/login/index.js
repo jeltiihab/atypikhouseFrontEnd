@@ -3,6 +3,7 @@ import WelcomBanner from "../../src/components/core/WelcomeBanner/WelcomeBanner"
 import styles from "./login.module.css"
 import AuthContext from "../../context/AuthContext";
 import LoginPage from "../../pages/login/index"
+import {NextSeo} from "next-seo";
 
 
 
@@ -11,6 +12,10 @@ const Index = () => {
     
     return (
         <>
+            <NextSeo
+                title="AtypikHouse - Connectez vous"
+                description="AtypikHouse, Vous cherchez un logement pour vos vacances et vous aimeriez tenter un voyage insolite en France pour toute la famille, ou même pour un petit séjour romantique"
+            />
             <div className={styles.loginContainer}>
                 {/* START right side of the login page */}
                 <div className={styles.leftSide} style={{marginBottom: '40rem'}}>
