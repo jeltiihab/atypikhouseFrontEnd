@@ -69,3 +69,6 @@
     @apply grid md:grid-cols-4 sm:grid-cols-1 m-10
 }
 
+.boldText {
+    @apply font-extrabold
+}

@@ -9,4 +9,8 @@ module.exports = withPWA({
     images: {
         domains: ['api.f2i-cw1-ij-hc-nag.fr'],
     },
+    i18n: {
+        locales: ["fr"],
+        defaultLocale: "fr",
+    },
 });
