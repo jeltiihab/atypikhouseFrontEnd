@@ -45,6 +45,7 @@
     "react-router-dom": "^6.1.1",
     "react-table": "^7.7.0",
     "react-toastify": "^8.1.0",
+    "sitemap": "^7.1.1",
     "typewriter-effect": "^2.18.2",
     "use-state-promise": "^0.1.1",
     "yup": "^0.32.11"
