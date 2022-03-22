@@ -31,7 +31,7 @@ const paimentValidation = function() {
     const nbrVoyager = router.query.nbrVoyager;
     const [isloading , setisloading] = useState(true);
     const [orderUrl , setorderUrl] = useState("");
-    const [confirmUrl , setconfirmUrl] = useState("");
+    const [confirmUrl , setconfirmUrl] = useState("https://google.com");
     const { currentRoute, setCurrentRoute } = useNavigation();
     const [propertyData, setPropertyData] = useState([]);
 
