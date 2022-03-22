@@ -29,9 +29,9 @@ const paimentValidation = function() {
     const arrival = router.query.arrival;
     const departure = router.query.departure;
     const nbrVoyager = router.query.nbrVoyager;
-const [isloading , setisloading] = useState(true);
-const [orderUrl , setorderUrl] = useState("");
-const [confirmUrl , setconfirmUrl] = useState("");
+    const [isloading , setisloading] = useState(true);
+    const [orderUrl , setorderUrl] = useState("");
+    const [confirmUrl , setconfirmUrl] = useState("");
     const { currentRoute, setCurrentRoute } = useNavigation();
     const [propertyData, setPropertyData] = useState([]);
 
@@ -144,8 +144,9 @@ function getOrder() {
 			{ orderUrl != ""?(
                     <PayPalScriptProvider options={{ "client-id":  "AYz2CwrBi8Tu5wdVqsd9IIs3ZdfN0C7cIkA0gczx_AquHaVQQIQJT2M4Neghd04Kje2At62p2ked1-Bu", currency: "EUR", commit:true}}>
                         <PayPalButtons
-                            createOrder={getOrder} 
+                            createOrder={getOrder}
                             onApprove={() => {
+                                console.log('CONFIRM URL', confirmUrl)
                                 return fetch(confirmUrl,{
                                     headers: {
                                         'content-type': 'application/json',
