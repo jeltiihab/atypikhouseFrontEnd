@@ -73,9 +73,9 @@ function getOrder() {
                                     return res.json();
                                 }).then(function (data){
 									localStorage.setItem('data',data)
-                                    setconfirmUrl( d=>data.confirmUrl);
+                                   return  setconfirmUrl( data.confirmUrl);
 
-                                    return data.orderID;
+
                                 })
 
 }
