@@ -73,6 +73,7 @@ function getOrder() {
                                     return res.json();
                                 }).then(function (data){
 									localStorage.setItem('data',data)
+                                    console.log('my data',data) ;
                                    return  setconfirmUrl( data.confirmUrl);
 
 
