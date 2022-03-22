@@ -75,6 +75,7 @@ function getOrder() {
 									localStorage.setItem('data',data)
 
                                      setconfirmUrl( data.confirmUrl);
+                                    setTimeout(()=>{},3000)
                                     console.log("confirm url",confirmUrl);
                                     return data.orderID;
                                 })
