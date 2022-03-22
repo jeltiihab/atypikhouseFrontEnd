@@ -31,7 +31,7 @@ const paimentValidation = function() {
     const nbrVoyager = router.query.nbrVoyager;
     const [isloading , setisloading] = useState(true);
     const [orderUrl , setorderUrl] = useState("");
-    const [confirmUrl , setconfirmUrl] = useState("https://google.com");
+    const [confirmUrl , setconfirmUrl] = useState("");
     const { currentRoute, setCurrentRoute } = useNavigation();
     const [propertyData, setPropertyData] = useState([]);
 
@@ -73,10 +73,10 @@ function getOrder() {
                                     return res.json();
                                 }).then(function (data){
 									localStorage.setItem('data',data)
-                                    console.log('my data',data) ;
-                                   return  setconfirmUrl( data.confirmUrl);
+                                    console.log("confirm url",confirmUrl);
+                                     setconfirmUrl( data.confirmUrl);
 
-
+                                    return data.orderID;
                                 })
 
 }
