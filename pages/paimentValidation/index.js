@@ -3,16 +3,8 @@ import styles from './paimentValidation.module.css'
 import Image from 'next/image'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHeart, faMapMarkedAlt, faStarHalfAlt, faUser, paypal} from "@fortawesome/free-solid-svg-icons";
-import Navbar from "../../src/components/core/Navbar/Navbar";
-import navigationData from "../../src/data/navigation";
-import Tabbar from "../../src/components/core/Tabbar/Tabbar";
 import useNavigation from "../../src/hooks/useNavigation";
-import AppButton from "../../src/components/ui/Buttons/Buttons"
-import buttonStyle from "../../src/components/ui/Buttons/Buttons.module.css";
 import PropertyImage from '../../public/images/galerie1.jpg'
-import PaypalIcon from '../../public/icons/paypal.png'
-import VisaIcon from '../../public/icons/visa.png'
-import MasterCardIcon from '../../public/icons/maestro.png'
 import {useRouter} from "next/router";
 import axios from "axios";
 import LoadingOverlay from 'react-loading-overlay';
@@ -20,7 +12,7 @@ import {PayPalScriptProvider, PayPalButtons} from "@paypal/react-paypal-js";
 import FullPageLoader from "../../src/components/ui/Spinner/FullPageLoader";
 import AuthContext from "../../context/AuthContext";
 
-const paimentValidation = function () {
+const paimentValidation = () => {
 
 
     const router = useRouter();
@@ -30,11 +22,13 @@ const paimentValidation = function () {
     const departure = router.query.departure;
     const nbrVoyager = router.query.nbrVoyager;
     const [isloading, setisloading] = useState(true);
-    const [orderUrl, setorderUrl] = useState("");
-    const [confirmUrl, setconfirmUrl] = useState("");
+
     const {currentRoute, setCurrentRoute} = useNavigation();
     const [propertyData, setPropertyData] = useState([]);
-    const titleRef = useRef("");
+
+    const [orderUrl, setorderUrl] = useState("");
+    const [confirmUrl, setconfirmUrl] = useState("");
+    const [approved, setApproved] = useState(false);
 
 
     const dataVerify = {arrival: arrival, departure: departure, propertyId: id};
@@ -44,21 +38,26 @@ const paimentValidation = function () {
         console.log('response.data', response.data);
         setorderUrl(response.data.orderUrl);
         setPropertyData(response.data);
-        setisloading(false)
-
+        setisloading(false);
     }
+
 
     useEffect(getProperty, [isAuthenticated, isLoading])
 
     if (isLoading || !isAuthenticated) {
         return <FullPageLoader/>;
     }
+    useEffect(() => {
+        if(confirmUrl && approved) {
+            approuve();
+        }
+    }, [approved, confirmUrl]);
 
-    async function getOrder() {
+    function getOrder() {
         console.log("order url", orderUrl);
         var ddata = {arrival: arrival, departure: departure, propertyId: id, hosting_capacity: nbrVoyager};
         console.log('ddata', ddata);
-        await fetch(orderUrl, {
+        return fetch(orderUrl, {
             method: "POST",
             body: JSON.stringify(ddata),
             headers: {
@@ -71,16 +70,28 @@ const paimentValidation = function () {
         }).then(function (res) {
             return res.json();
         }).then(function (data) {
-            localStorage.setItem('data', data)
-            console.log("This is me", data.confirmUrl)
-            titleRef.current = data.confirmUrl
+            localStorage.setItem('data', data);
+            console.log("LOG CONFIRM URL", data.confirmUrl);
             setconfirmUrl(data.confirmUrl);
             console.log("confirm url", confirmUrl);
-            console.log("confirm url with ref => ", titleRef);
-            console.log("order ID => ", data.orderID);
             return data.orderID;
         })
 
+    }
+
+    function approuve () {
+        console.log('CONFIRM URL', confirmUrl);
+        return fetch(confirmUrl, {
+            headers: {
+                'content-type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': localStorage.getItem('access_token') ? localStorage.getItem('access_token') : ''
+            }
+        }).then(function (res) {
+            return res.json();
+        }).then(function (data) {
+            router.push("paymentsuccess");
+        })
     }
 
     return (
@@ -165,24 +176,9 @@ const paimentValidation = function () {
                             }}>
                                 <PayPalButtons
                                     createOrder={getOrder}
-                                    onApprove={() => {
-                                        console.log('CONFIRM URL', confirmUrl)
-                                        return fetch(titleRef.current, {
-                                            headers: {
-                                                'content-type': 'application/json',
-                                                'Accept': 'application/json',
-                                                'Authorization': localStorage.getItem('access_token') ? localStorage.getItem('access_token') : ''
-                                            }
-                                        }).then(function (res) {
-                                            return res.json()
-                                        }).then(function (data) {
-                                            router.push("paymentsuccess")
-                                        })
-                                    }}
+                                    onApprove={() => setApproved(true)}
                                 />
                             </PayPalScriptProvider>) : (<br/>)}
-
-
                     </div>
                 </div>
 
