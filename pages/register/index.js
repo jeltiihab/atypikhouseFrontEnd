@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import WelcomBanner from "../../src/components/core/WelcomeBanner/WelcomeBanner";
 import styles from "../login/login.module.css"
 import ButtonStyle from '../../src/components/ui/Buttons/Buttons.module.css'
@@ -14,9 +14,13 @@ import { useRouter } from 'next/router'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import {NextSeo} from "next-seo";
+import AuthContext from "../../context/AuthContext";
+import FullPageLoader from "../../src/components/ui/Spinner/FullPageLoader";
 
 const Index = () => {
 
+    let {isAuthenticated, user, logoutUser, isLoading} = useContext(AuthContext)
+    const router = useRouter()
     var CryptoJS = require("crypto-js");
     
     const Router = useRouter()
@@ -59,7 +63,7 @@ const Index = () => {
                     console.log("Error", err);
             });
         // if there is a response and a data then success
-        if(response && response.data && response?.data?.access_token !== undefined) {
+        if(response && response.data && response?.data?.access_token !== undefined && response.status === 200) {
             localStorage.setItem('access_token', "Bearer "+response.data.access_token)
             localStorage.setItem('user', CryptoJS.AES.encrypt( JSON.stringify(response.data.data), "Bearer "+response.data.access_token ).toString())
             Router.push('/emailverification')
@@ -69,42 +73,15 @@ const Index = () => {
             return;
         }
     }
-    /*const formik = useFormik ({
-        initialValues: {
-            userRole: "",
-            firstName: "",
-            lastName: "",
-            birthDay: "",
-            sexe: "",
-            phone: "",
-            email: "",
-            password: "",
-            confirmPassword: "",
-            validationSchema: userschema,
-            onSubmit: (values, actions) => {
-                alert(values);
-                console.log(values);
-                actions.resetForm();
-            },
+
+    useEffect(() => {
+        if (!isLoading && isAuthenticated) {
+            router.push('/');
         }
-    })*/
-    /*const formik = useFormik({
-        initialValues: {
-            userRole: "",
-            firstName: "",
-            lastName: "",
-            birthDay: "",
-            sexe: "",
-            phone: "",
-            email: "",
-            password: "",
-            confirmPassword: ""
-        },
-        userschema,
-        onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
-        },
-    });*/
+    }, [isAuthenticated, isLoading]);
+    if (isLoading || isAuthenticated) {
+        return <FullPageLoader />;
+    }
 
     return (
         <div>
