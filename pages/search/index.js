@@ -24,21 +24,21 @@ export default function Search() {
         axios.get(url)
             .then( (response) => {
                 if (response?.data?.arrival != null) {
-                    toast.error("Merci de vérifier votre saisie", {theme: 'colored'});
+                    toast.error("La date d'arrivée doit être supérieure à aujourd'hui", {theme: 'colored'});
                     return;
                 } else if (response?.data?.departure != null) {
-                    toast.error("Merci de vérifier votre saisie", {theme: 'colored'});
+                    toast.error("Veuillez saisir la date de départ", {theme: 'colored'});
                     return;
                 } else if (response?.data?.destination != null) {
-                    toast.error("Merci de vérifier votre saisie", {theme: 'colored'});
+                    toast.error("Veuillez saisir votre destination", {theme: 'colored'});
                     return;
                 } else if (response?.data?.maxTraveler != null) {
-                    toast.error("Merci de vérifier votre saisie", {theme: 'colored'});
+                    toast.error("Veuillez saisir le nombre de voyageurs", {theme: 'colored'});
                     return;
                 } else if(response.status == 200 && response?.data?.arrival == null && response?.data?.departure == null && response?.data?.destination == null && response?.data?.maxTraveler == null) {
-                   setProperties(response?.data);
+                    setProperties(response?.data);
                 } else {
-                    toast.error("Une erreur est survenue veilleur vérifié votre saisie.", {theme: 'colored'});
+                    toast.error("Une erreur est survenue veilleur réssayer.", {theme: 'colored'});
                     return;
                 }
                 //console.log(cardsData);
@@ -57,6 +57,7 @@ export default function Search() {
             <div className={styles.searchContainer}>
             <SearchBar />
             </div>
+            <div className={styles.TitlesDiv}><h1 className={styles.Titles}>Explorer nos hébergements insolites</h1></div>
             <div className={styles.cardsContainer}>
                 <PropertyCard propertyData = {properties} />
             </div>
